@@ -28,6 +28,16 @@
 
 #include <QJoysticks.h>
 
+/*
+ * This is necessary to avoid compilation issues under Windows.
+ * Sorry for the ugly code :/
+ */
+#ifdef Q_OS_WIN
+#ifdef main
+#undef main
+#endif
+#endif
+
 void configureDarkStyle()
 {
     qApp->setStyle (QStyleFactory::create ("Fusion"));
