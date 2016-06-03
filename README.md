@@ -11,13 +11,13 @@ SDL binaries and headers for Windows and OS X are already included in this libra
 2. Include the QJoysticks project include (*pri*) file using the include() function.
 3. That's all! Check the [example project](#example-project) as a reference for your project.
 
-# QML compatibility
+## QML compatibility
 This library can be used from QML, just register it as a context property when initializing your QML engine (check the [example](#example-project) for more information).
 
-# Example Project
+## Example Project
 I have created a [simple example](/examples/JoystickList) with QML, in which the user can select a joystick and see live feedback from each joystick axis, button and POV.
 
-# WTFs Section
+## WTFs Section
 
 ### 1. What are the joystick IDs and how are they assigned?
 
@@ -84,5 +84,5 @@ QJoysticks::getInstance()->setVirtualJoystickAxisRange (0.8);
 
 You cannot customize the axis range of the SDL joysticks.
 
-# License
+## License
 This project is licensed under the MIT license. For more information, check the [LICENSE](LICENSE) file.
