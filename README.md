@@ -11,6 +11,11 @@ SDL binaries and headers for Windows and OS X are already included in this libra
 2. Include the QJoysticks project include (*pri*) file using the include() function.
 3. That's all! Check the [example project](#example-project) as a reference for your project.
 
+### Note for Windows users
+
+In some cases, SDL will redefine the *main()* function, which may cause compilation problems.
+In order to fix this, you may need to use [this ugly hack](/examples/JoystickList/main.cpp#L31).
+
 ## QML compatibility
 This library can be used from QML, just register it as a context property when initializing your QML engine (check the [example](#example-project) for more information).
 
