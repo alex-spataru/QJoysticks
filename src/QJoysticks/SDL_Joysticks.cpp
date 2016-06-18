@@ -62,10 +62,9 @@ static QString GENERIC_MAPPINGS;
  * Initializes SDL, loads the generic mapping and loads the controller mappings
  * database file into the SDL system.
  */
-SDL_Joysticks::SDL_Joysticks()
-{
+SDL_Joysticks::SDL_Joysticks() {
     m_tracker = -1;
-    SDL_Init (SDL_INIT_AUDIO | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER);
+    SDL_Init (SDL_INIT_HAPTIC | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
 
     QFile database (":/QJoysticks/SDL/Database.txt");
     if (database.open (QFile::ReadOnly)) {
@@ -83,14 +82,13 @@ SDL_Joysticks::SDL_Joysticks()
         genericMappings.close();
     }
 
-    QTimer::singleShot (1500, Qt::PreciseTimer, this, SLOT (update()));
+    QTimer::singleShot (Qt::PreciseTimer, this, SLOT (update()));
 }
 
 /**
  * Returns a list with all the registered joystick devices
  */
-QList<QJoystickDevice*> SDL_Joysticks::joysticks()
-{
+QList<QJoystickDevice*> SDL_Joysticks::joysticks() {
     QList<QJoystickDevice*> list;
 
     for (int i = 0; i < SDL_NumJoysticks(); ++i)
@@ -103,8 +101,7 @@ QList<QJoystickDevice*> SDL_Joysticks::joysticks()
  * Based on the data contained in the \a request, this function will instruct
  * the appropiate joystick to rumble for
  */
-void SDL_Joysticks::rumble (const QJoystickRumble& request)
-{
+void SDL_Joysticks::rumble (const QJoystickRumble& request) {
     SDL_Haptic* haptic = SDL_HapticOpen (request.joystick->id);
 
     if (haptic) {
@@ -116,8 +113,7 @@ void SDL_Joysticks::rumble (const QJoystickRumble& request)
 /**
  * Polls for new SDL events and reacts to each event accordingly.
  */
-void SDL_Joysticks::update()
-{
+void SDL_Joysticks::update() {
     SDL_Event event;
 
     while (SDL_PollEvent (&event)) {
@@ -145,7 +141,7 @@ void SDL_Joysticks::update()
         }
     }
 
-    QTimer::singleShot (20, this, SLOT (update()));
+    QTimer::singleShot (50, this, SLOT (update()));
 }
 
 /**
@@ -153,8 +149,7 @@ void SDL_Joysticks::update()
  * If not, the function will apply a generic mapping to the joystick and
  * attempt to initialize the joystick again.
  */
-void SDL_Joysticks::configureJoystick (const SDL_Event* event)
-{
+void SDL_Joysticks::configureJoystick (const SDL_Event* event) {
     if (!SDL_IsGameController (event->cdevice.which)) {
         SDL_Joystick* js = SDL_JoystickOpen (event->jdevice.which);
 
@@ -187,8 +182,7 @@ void SDL_Joysticks::configureJoystick (const SDL_Event* event)
  * one used by a \c QList, since it eases the operation with most Qt classes
  * and widgets.
  */
-int SDL_Joysticks::getDynamicID (int id)
-{
+int SDL_Joysticks::getDynamicID (int id) {
     id = abs (m_tracker - (id + 1));
 
     if (id >= SDL_NumJoysticks())
@@ -202,8 +196,7 @@ int SDL_Joysticks::getDynamicID (int id)
  * If no joystick with the given \a id is found, then the function will warn
  * the user through the console.
  */
-QJoystickDevice* SDL_Joysticks::getJoystick (int id)
-{
+QJoystickDevice* SDL_Joysticks::getJoystick (int id) {
     QJoystickDevice* joystick  = new QJoystickDevice;
     SDL_Joystick* sdl_joystick = SDL_JoystickOpen (id);
 
@@ -227,8 +220,7 @@ QJoystickDevice* SDL_Joysticks::getJoystick (int id)
  * Reads the contents of the given \a event and constructs a new
  * \c QJoystickPOVEvent to be used with the \c QJoysticks system.
  */
-QJoystickPOVEvent SDL_Joysticks::getPOVEvent (const SDL_Event* sdl_event)
-{
+QJoystickPOVEvent SDL_Joysticks::getPOVEvent (const SDL_Event* sdl_event) {
     QJoystickPOVEvent event;
     event.pov      = sdl_event->jhat.hat;
     event.joystick = getJoystick (sdl_event->jdevice.which);
@@ -270,12 +262,11 @@ QJoystickPOVEvent SDL_Joysticks::getPOVEvent (const SDL_Event* sdl_event)
  * Reads the contents of the given \a event and constructs a new
  * \c QJoystickAxisEvent to be used with the \c QJoysticks system.
  */
-QJoystickAxisEvent SDL_Joysticks::getAxisEvent (const SDL_Event* sdl_event)
-{
+QJoystickAxisEvent SDL_Joysticks::getAxisEvent (const SDL_Event* sdl_event) {
     QJoystickAxisEvent event;
 
     event.axis = sdl_event->caxis.axis;
-    event.value = (float) sdl_event->caxis.value / 32767;
+    event.value = static_cast<float>(sdl_event->caxis.value) / 32767;
     event.joystick = getJoystick (sdl_event->cdevice.which);
 
     return event;
@@ -285,8 +276,8 @@ QJoystickAxisEvent SDL_Joysticks::getAxisEvent (const SDL_Event* sdl_event)
  * Reads the contents of the given \a event and constructs a new
  * \c QJoystickButtonEvent to be used with the \c QJoysticks system.
  */
-QJoystickButtonEvent SDL_Joysticks::getButtonEvent (const SDL_Event* sdl_event)
-{
+QJoystickButtonEvent SDL_Joysticks::getButtonEvent (const SDL_Event*
+        sdl_event) {
     QJoystickButtonEvent event;
 
     event.button = sdl_event->jbutton.button;
