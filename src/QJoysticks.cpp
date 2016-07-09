@@ -26,33 +26,6 @@
 #include <QJoysticks/SDL_Joysticks.h>
 #include <QJoysticks/VirtualJoystick.h>
 
-/**
- * \file QJoysticks.h
- * \class QJoysticks
- *
- * The \c QJoysticks class is the "god-object" of this system. It manages every
- * input system used by the application (e.g. SDL for real joysticks and
- * keyboard for virtual joystick) and communicates every module/input system
- * with the rest of the application through standarized types.
- *
- * The joysticks are assigned a numerical ID, which the \c QJoysticks can use to
- * identify them. The ID's start with \c 0 (as with a QList). The ID's are
- * refreshed when a joystick is attached or removed. The first joystick that
- * has been connected to the computer will have \c 0 as an ID, the second
- * joystick will have \c 1 as an ID, and so on...
- *
- * \note the virtual joystick will ALWAYS be the last joystick to be registered,
- *       even if it has been enabled before any SDL joystick has been attached.
- */
-
-/**
- * Appended to the name of all joystick blacklisted
- */
-const QString BLACKLISTED_STR = " (" + QObject::tr ("Disabled") + ")";
-
-/**
- * Initializes and configures the SDL and virtual joystick modules.
- */
 QJoysticks::QJoysticks() {
     /* Initialize input methods */
     m_sdlJoysticks = new SDL_Joysticks();
@@ -92,9 +65,6 @@ QJoysticks::QJoysticks() {
     m_settings->beginGroup ("Blacklisted Joysticks");
 }
 
-/**
- * Delete pointers
- */
 QJoysticks::~QJoysticks() {
     delete m_settings;
     delete m_sdlJoysticks;
@@ -268,37 +238,31 @@ void QJoysticks::setSortJoysticksByBlacklistState (bool sort) {
 /**
  * Blacklists or whitelists the joystick at the given \a index.
  *
- * \note The joystick name will be changed based on the value of \a blacklisted
  * \note This function does not have effect if the given joystick does not exist
  * \note Once the joystick is blacklisted, the joystick list will be updated
  */
 void QJoysticks::setBlacklisted (int index, bool blacklisted) {
     if (joystickExists (index)) {
-        QString name = getName (index);
-        QString settingsName = getName (index);
-
-        if (blacklisted && !name.contains (BLACKLISTED_STR, Qt::CaseSensitive)) {
-            name.append (BLACKLISTED_STR);
-
+        /* Netrualize the joystick */
+        if (blacklisted) {
             for (int i = 0; i < inputDevices().at (index)->numAxes; ++i)
                 emit axisChanged (index, i, 0);
+
             for (int i = 0; i < inputDevices().at (index)->numButtons; ++i)
                 emit buttonChanged (index, i, false);
+
             for (int i = 0; i < inputDevices().at (index)->numPOVs; ++i)
                 emit povChanged (index, i, 0);
         }
 
-        else if (!blacklisted && name.contains (BLACKLISTED_STR, Qt::CaseSensitive)) {
-            name.chop (BLACKLISTED_STR.length());
-            settingsName.chop (BLACKLISTED_STR.length());
-        }
-
+        /* See if blacklist value was actually changed */
         bool changed = m_devices.at (index)->blacklisted != blacklisted;
 
-        m_devices.at (index)->name = name;
+        /* Save settings */
         m_devices.at (index)->blacklisted = blacklisted;
-        m_settings->setValue (settingsName, blacklisted);
+        m_settings->setValue (getName (index), blacklisted);
 
+        /* Re-scan joysticks if blacklist value has changed */
         if (changed)
             updateInterfaces();
     }
@@ -376,7 +340,7 @@ void QJoysticks::updateInterfaces() {
  * Take into account that maximum axis values supported by the \c QJoysticks
  * system is from \c -1 to \c 1.
  */
-void QJoysticks::setVirtualJoystickRange (float range) {
+void QJoysticks::setVirtualJoystickRange (qreal range) {
     virtualJoystick()->setAxisRange (range);
 }
 

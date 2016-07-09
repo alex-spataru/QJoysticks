@@ -31,9 +31,35 @@ class QSettings;
 class SDL_Joysticks;
 class VirtualJoystick;
 
+/**
+ * \brief Manages the input systems and communicates them with the application
+ *
+ * The \c QJoysticks class is the "god-object" of this system. It manages every
+ * input system used by the application (e.g. SDL for real joysticks and
+ * keyboard for virtual joystick) and communicates every module/input system
+ * with the rest of the application through standarized types.
+ *
+ * The joysticks are assigned a numerical ID, which the \c QJoysticks can use to
+ * identify them. The ID's start with \c 0 (as with a QList). The ID's are
+ * refreshed when a joystick is attached or removed. The first joystick that
+ * has been connected to the computer will have \c 0 as an ID, the second
+ * joystick will have \c 1 as an ID, and so on...
+ *
+ * \note the virtual joystick will ALWAYS be the last joystick to be registered,
+ *       even if it has been enabled before any SDL joystick has been attached.
+ */
 class QJoysticks : public QObject {
     Q_OBJECT
     friend class Test_QJoysticks;
+
+  signals:
+    void countChanged();
+    void POVEvent (const QJoystickPOVEvent& event);
+    void axisEvent (const QJoystickAxisEvent& event);
+    void buttonEvent (const QJoystickButtonEvent& event);
+    void povChanged (const int js, const int pov, const int angle);
+    void axisChanged (const int js, const int axis, const qreal value);
+    void buttonChanged (const int js, const int button, const bool pressed);
 
   public:
     static QJoysticks* getInstance();
@@ -56,7 +82,7 @@ class QJoysticks : public QObject {
 
   public slots:
     void updateInterfaces();
-    void setVirtualJoystickRange (float range);
+    void setVirtualJoystickRange (qreal range);
     void setVirtualJoystickEnabled (bool enabled);
     void setSortJoysticksByBlacklistState (bool sort);
     void setBlacklisted (int index, bool blacklisted);
@@ -64,15 +90,6 @@ class QJoysticks : public QObject {
   protected:
     explicit QJoysticks();
     ~QJoysticks();
-
-  signals:
-    void countChanged();
-    void POVEvent (const QJoystickPOVEvent& event);
-    void axisEvent (const QJoystickAxisEvent& event);
-    void buttonEvent (const QJoystickButtonEvent& event);
-    void povChanged (int js, int pov, int angle);
-    void axisChanged (int js, int axis, const double value);
-    void buttonChanged (int js, int button, bool pressed);
 
   private slots:
     void resetJoysticks();

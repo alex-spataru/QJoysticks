@@ -27,8 +27,26 @@
 #include <QObject>
 #include <QJoysticks/JoysticksCommon.h>
 
+/**
+ * \brief Translates SDL events into \c QJoysticks events
+ *
+ * This class is in charge of managing and operating real joysticks through the
+ * SDL API. The implementation procedure is the same for every operating system.
+ *
+ * The only thing that differs from each operating system is the backup mapping
+ * applied in the case that we do not know what mapping to apply to a joystick.
+ *
+ * \note The joystick values are refreshed every 20 milliseconds through a
+ *       simple event loop.
+ */
 class SDL_Joysticks : public QObject {
     Q_OBJECT
+
+  signals:
+    void countChanged();
+    void POVEvent (const QJoystickPOVEvent& event);
+    void axisEvent (const QJoystickAxisEvent& event);
+    void buttonEvent (const QJoystickButtonEvent& event);
 
   public:
     explicit SDL_Joysticks();
@@ -36,12 +54,6 @@ class SDL_Joysticks : public QObject {
 
   public slots:
     void rumble (const QJoystickRumble& request);
-
-  signals:
-    void countChanged();
-    void POVEvent (const QJoystickPOVEvent& event);
-    void axisEvent (const QJoystickAxisEvent& event);
-    void buttonEvent (const QJoystickButtonEvent& event);
 
   private slots:
     void update();

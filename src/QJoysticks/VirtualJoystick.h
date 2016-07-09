@@ -28,26 +28,32 @@
 #include <QApplication>
 #include <QJoysticks/JoysticksCommon.h>
 
+/**
+ * \brief Translates keyboard input to joystick input
+ *
+ * This class implements a virtual joystick device that uses the computer's
+ * keyboard as means to get the axis, button and POV values of the joystick.
+ */
 class VirtualJoystick : public QObject {
     Q_OBJECT
-
-  public:
-    explicit VirtualJoystick();
-
-    float axisRange() const;
-    bool joystickEnabled() const;
-    QJoystickDevice* joystick();
-
-  public slots:
-    void setJoystickID (int id);
-    void setAxisRange (float range);
-    void setJoystickEnabled (bool enabled);
 
   signals:
     void enabledChanged();
     void povEvent (const QJoystickPOVEvent& event);
     void axisEvent (const QJoystickAxisEvent& event);
     void buttonEvent (const QJoystickButtonEvent& event);
+
+  public:
+    explicit VirtualJoystick();
+
+    qreal axisRange() const;
+    bool joystickEnabled() const;
+    QJoystickDevice* joystick();
+
+  public slots:
+    void setJoystickID (int id);
+    void setAxisRange (qreal range);
+    void setJoystickEnabled (bool enabled);
 
   private slots:
     void readAxes (int key, bool pressed);
@@ -59,7 +65,7 @@ class VirtualJoystick : public QObject {
     bool eventFilter (QObject* object, QEvent* event);
 
   private:
-    float m_axisRange;
+    qreal m_axisRange;
     bool m_joystickEnabled;
     QJoystickDevice m_joystick;
 };
