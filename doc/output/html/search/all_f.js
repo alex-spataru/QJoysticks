@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['value',['value',['../struct_q_joystick_axis_event.html#a3cc39770f2ffc48ce84bbc8f0626735a',1,'QJoystickAxisEvent']]],
-  ['virtualjoystick',['VirtualJoystick',['../class_virtual_joystick.html',1,'VirtualJoystick'],['../class_q_joysticks.html#ae673f2c42ee10f32b7ef09f9c06cc98e',1,'QJoysticks::virtualJoystick()']]]
+  ['update',['update',['../class_s_d_l___joysticks.html#aeebfc5dd6916cf38d83f201e46c792b7',1,'SDL_Joysticks']]],
+  ['updateinterfaces',['updateInterfaces',['../class_q_joysticks.html#ad46540bb96c23bef9dfc6284aee6e180',1,'QJoysticks']]]
 ];
