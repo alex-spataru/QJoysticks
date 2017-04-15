@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016 Alex Spataru <alex_spataru@outlook.com>
+ * Copyright (c) 2015-2017 Alex Spataru <alex_spataru@outlook.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,12 +48,24 @@ class VirtualJoystick;
  * \note the virtual joystick will ALWAYS be the last joystick to be registered,
  *       even if it has been enabled before any SDL joystick has been attached.
  */
-class QJoysticks : public QObject {
+class QJoysticks : public QObject
+{
     Q_OBJECT
+    Q_PROPERTY (int count
+                READ count
+                NOTIFY countChanged)
+    Q_PROPERTY (int nonBlacklistedCount
+                READ nonBlacklistedCount
+                NOTIFY countChanged)
+    Q_PROPERTY (QStringList deviceNames
+                READ deviceNames
+                NOTIFY countChanged)
+
     friend class Test_QJoysticks;
 
-  signals:
+signals:
     void countChanged();
+    void enabledChanged (const bool enabled);
     void POVEvent (const QJoystickPOVEvent& event);
     void axisEvent (const QJoystickAxisEvent& event);
     void buttonEvent (const QJoystickButtonEvent& event);
@@ -61,11 +73,13 @@ class QJoysticks : public QObject {
     void axisChanged (const int js, const int axis, const qreal value);
     void buttonChanged (const int js, const int button, const bool pressed);
 
-  public:
+public:
     static QJoysticks* getInstance();
 
-    Q_INVOKABLE int count() const;
-    Q_INVOKABLE int nonBlacklistedCount();
+    int count() const;
+    int nonBlacklistedCount();
+    QStringList deviceNames() const;
+
     Q_INVOKABLE int getNumAxes (int index);
     Q_INVOKABLE int getNumPOVs (int index);
     Q_INVOKABLE int getNumButtons (int index);
@@ -73,32 +87,30 @@ class QJoysticks : public QObject {
     Q_INVOKABLE bool joystickExists (int index);
     Q_INVOKABLE QString getName (int index);
 
-    Q_INVOKABLE QStringList deviceNames() const;
-    QList<QJoystickDevice*> inputDevices() const;
-
     SDL_Joysticks* sdlJoysticks() const;
     VirtualJoystick* virtualJoystick() const;
     QJoystickDevice* getInputDevice (int index);
+    QList<QJoystickDevice*> inputDevices() const;
 
-  public slots:
+public slots:
     void updateInterfaces();
     void setVirtualJoystickRange (qreal range);
     void setVirtualJoystickEnabled (bool enabled);
     void setSortJoysticksByBlacklistState (bool sort);
     void setBlacklisted (int index, bool blacklisted);
 
-  protected:
+protected:
     explicit QJoysticks();
     ~QJoysticks();
 
-  private slots:
+private slots:
     void resetJoysticks();
     void addInputDevice (QJoystickDevice* device);
     void onPOVEvent (const QJoystickPOVEvent& event);
     void onAxisEvent (const QJoystickAxisEvent& event);
     void onButtonEvent (const QJoystickButtonEvent& event);
 
-  private:
+private:
     bool m_sortJoyticks;
 
     QSettings* m_settings;

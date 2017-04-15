@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -72,8 +72,7 @@ extern DECLSPEC int SDLCALL SDL_GetNumTouchFingers (SDL_TouchID touchID);
 /**
  *  \brief Get the finger object of the given touch, with the given index.
  */
-extern DECLSPEC SDL_Finger* SDLCALL SDL_GetTouchFinger (SDL_TouchID touchID,
-        int index);
+extern DECLSPEC SDL_Finger* SDLCALL SDL_GetTouchFinger (SDL_TouchID touchID, int index);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

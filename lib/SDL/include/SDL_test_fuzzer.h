@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -57,7 +57,7 @@ extern "C" {
 /**
  * Initializes the fuzzer for a test
  *
- * /param execKey Execution "Key" that initializes the random number generator uniquely for the test.
+ * \param execKey Execution "Key" that initializes the random number generator uniquely for the test.
  *
  */
 void SDLTest_FuzzerInit (Uint64 execKey);
@@ -164,8 +164,7 @@ double SDLTest_RandomDouble();
  *
  * \returns Random boundary value for the given range and domain or 0 with error set
  */
-Uint8 SDLTest_RandomUint8BoundaryValue (Uint8 boundary1, Uint8 boundary2,
-                                        SDL_bool validDomain);
+Uint8 SDLTest_RandomUint8BoundaryValue (Uint8 boundary1, Uint8 boundary2, SDL_bool validDomain);
 
 /**
  * Returns a random boundary value for Uint16 within the given boundaries.
@@ -186,8 +185,7 @@ Uint8 SDLTest_RandomUint8BoundaryValue (Uint8 boundary1, Uint8 boundary2,
  *
  * \returns Random boundary value for the given range and domain or 0 with error set
  */
-Uint16 SDLTest_RandomUint16BoundaryValue (Uint16 boundary1, Uint16 boundary2,
-                                          SDL_bool validDomain);
+Uint16 SDLTest_RandomUint16BoundaryValue (Uint16 boundary1, Uint16 boundary2, SDL_bool validDomain);
 
 /**
  * Returns a random boundary value for Uint32 within the given boundaries.
@@ -208,8 +206,7 @@ Uint16 SDLTest_RandomUint16BoundaryValue (Uint16 boundary1, Uint16 boundary2,
  *
  * \returns Random boundary value for the given range and domain or 0 with error set
  */
-Uint32 SDLTest_RandomUint32BoundaryValue (Uint32 boundary1, Uint32 boundary2,
-                                          SDL_bool validDomain);
+Uint32 SDLTest_RandomUint32BoundaryValue (Uint32 boundary1, Uint32 boundary2, SDL_bool validDomain);
 
 /**
  * Returns a random boundary value for Uint64 within the given boundaries.
@@ -230,8 +227,7 @@ Uint32 SDLTest_RandomUint32BoundaryValue (Uint32 boundary1, Uint32 boundary2,
  *
  * \returns Random boundary value for the given range and domain or 0 with error set
  */
-Uint64 SDLTest_RandomUint64BoundaryValue (Uint64 boundary1, Uint64 boundary2,
-                                          SDL_bool validDomain);
+Uint64 SDLTest_RandomUint64BoundaryValue (Uint64 boundary1, Uint64 boundary2, SDL_bool validDomain);
 
 /**
  * Returns a random boundary value for Sint8 within the given boundaries.
@@ -252,8 +248,7 @@ Uint64 SDLTest_RandomUint64BoundaryValue (Uint64 boundary1, Uint64 boundary2,
  *
  * \returns Random boundary value for the given range and domain or SINT8_MIN with error set
  */
-Sint8 SDLTest_RandomSint8BoundaryValue (Sint8 boundary1, Sint8 boundary2,
-                                        SDL_bool validDomain);
+Sint8 SDLTest_RandomSint8BoundaryValue (Sint8 boundary1, Sint8 boundary2, SDL_bool validDomain);
 
 
 /**
@@ -275,8 +270,7 @@ Sint8 SDLTest_RandomSint8BoundaryValue (Sint8 boundary1, Sint8 boundary2,
  *
  * \returns Random boundary value for the given range and domain or SINT16_MIN with error set
  */
-Sint16 SDLTest_RandomSint16BoundaryValue (Sint16 boundary1, Sint16 boundary2,
-                                          SDL_bool validDomain);
+Sint16 SDLTest_RandomSint16BoundaryValue (Sint16 boundary1, Sint16 boundary2, SDL_bool validDomain);
 
 /**
  * Returns a random boundary value for Sint32 within the given boundaries.
@@ -297,8 +291,7 @@ Sint16 SDLTest_RandomSint16BoundaryValue (Sint16 boundary1, Sint16 boundary2,
  *
  * \returns Random boundary value for the given range and domain or SINT32_MIN with error set
  */
-Sint32 SDLTest_RandomSint32BoundaryValue (Sint32 boundary1, Sint32 boundary2,
-                                          SDL_bool validDomain);
+Sint32 SDLTest_RandomSint32BoundaryValue (Sint32 boundary1, Sint32 boundary2, SDL_bool validDomain);
 
 /**
  * Returns a random boundary value for Sint64 within the given boundaries.
@@ -319,14 +312,13 @@ Sint32 SDLTest_RandomSint32BoundaryValue (Sint32 boundary1, Sint32 boundary2,
  *
  * \returns Random boundary value for the given range and domain or SINT64_MIN with error set
  */
-Sint64 SDLTest_RandomSint64BoundaryValue (Sint64 boundary1, Sint64 boundary2,
-                                          SDL_bool validDomain);
+Sint64 SDLTest_RandomSint64BoundaryValue (Sint64 boundary1, Sint64 boundary2, SDL_bool validDomain);
 
 
 /**
  * Returns integer in range [min, max] (inclusive).
  * Min and max values can be negative values.
- * If Max in smaller tham min, then the values are swapped.
+ * If Max in smaller than min, then the values are swapped.
  * Min and max are the same value, that value will be returned.
  *
  * \param min Minimum inclusive value of returned random number

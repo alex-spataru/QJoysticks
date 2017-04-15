@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -110,8 +110,8 @@ typedef struct {
  *        block execution of that thread until the user clicks a button or
  *        closes the messagebox.
  */
-extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData*
-                                                messageboxdata, int* buttonid);
+extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData* messageboxdata,
+                                                int* buttonid);
 
 /**
  *  \brief Create a simple modal message box
@@ -125,8 +125,8 @@ extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData*
  *
  *  \sa SDL_ShowMessageBox
  */
-extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox (Uint32 flags,
-        const char* title, const char* message, SDL_Window* window);
+extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox (Uint32 flags, const char* title,
+        const char* message, SDL_Window* window);
 
 
 /* Ends C function definitions when using C++ */

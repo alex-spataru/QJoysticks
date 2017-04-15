@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -123,8 +123,7 @@ extern DECLSPEC char* SDLCALL SDL_GetBasePath (void);
  *
  * \sa SDL_GetBasePath
  */
-extern DECLSPEC char* SDLCALL SDL_GetPrefPath (const char* org,
-                                               const char* app);
+extern DECLSPEC char* SDLCALL SDL_GetPrefPath (const char* org, const char* app);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
@@ -132,6 +131,6 @@ extern DECLSPEC char* SDLCALL SDL_GetPrefPath (const char* org,
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_system_h */
+#endif /* _SDL_filesystem_h */
 
 /* vi: set ts=4 sw=4 expandtab: */

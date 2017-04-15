@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -45,10 +45,8 @@ extern "C" {
  *  \note  If you are looking for translated character input, see the ::SDL_TEXTINPUT event.
  */
 typedef struct SDL_Keysym {
-    SDL_Scancode
-    scancode;      /**< SDL physical key code - see ::SDL_Scancode for details */
-    SDL_Keycode
-    sym;            /**< SDL virtual key code - see ::SDL_Keycode for details */
+    SDL_Scancode scancode;      /**< SDL physical key code - see ::SDL_Scancode for details */
+    SDL_Keycode sym;            /**< SDL virtual key code - see ::SDL_Keycode for details */
     Uint16 mod;                 /**< current key modifiers */
     Uint32 unused;
 } SDL_Keysym;
@@ -97,8 +95,7 @@ extern DECLSPEC void SDLCALL SDL_SetModState (SDL_Keymod modstate);
  *
  *  \sa SDL_GetKeyName()
  */
-extern DECLSPEC SDL_Keycode SDLCALL SDL_GetKeyFromScancode (
-    SDL_Scancode scancode);
+extern DECLSPEC SDL_Keycode SDLCALL SDL_GetKeyFromScancode (SDL_Scancode scancode);
 
 /**
  *  \brief Get the scancode corresponding to the given key code according to the
@@ -138,7 +135,7 @@ extern DECLSPEC SDL_Scancode SDLCALL SDL_GetScancodeFromName (const char* name);
  *          copy it.  If the key doesn't have a name, this function returns an
  *          empty string ("").
  *
- *  \sa SDL_Key
+ *  \sa SDL_Keycode
  */
 extern DECLSPEC const char* SDLCALL SDL_GetKeyName (SDL_Keycode key);
 

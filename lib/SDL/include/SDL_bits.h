@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -48,7 +48,8 @@ extern "C" {
  *  \return Index of the most significant bit, or -1 if the value is 0.
  */
 SDL_FORCE_INLINE int
-SDL_MostSignificantBitIndex32 (Uint32 x) {
+SDL_MostSignificantBitIndex32 (Uint32 x)
+{
 #if defined(__GNUC__) && __GNUC__ >= 4
     /* Count Leading Zeroes builtin in GCC.
      * http://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Other-Builtins.html
