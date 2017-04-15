@@ -35,11 +35,11 @@
 #include "SDL.h"
 
 #if defined(__PSP__)
-    #define DEFAULT_WINDOW_WIDTH  480
-    #define DEFAULT_WINDOW_HEIGHT 272
+#define DEFAULT_WINDOW_WIDTH  480
+#define DEFAULT_WINDOW_HEIGHT 272
 #else
-    #define DEFAULT_WINDOW_WIDTH  640
-    #define DEFAULT_WINDOW_HEIGHT 480
+#define DEFAULT_WINDOW_WIDTH  640
+#define DEFAULT_WINDOW_HEIGHT 480
 #endif
 
 #define VERBOSE_VIDEO   0x00000001
@@ -165,7 +165,8 @@ SDL_bool SDLTest_CommonInit (SDLTest_CommonState* state);
  * \param done Flag indicating we are done.
  *
  */
-void SDLTest_CommonEvent (SDLTest_CommonState* state, SDL_Event* event, int* done);
+void SDLTest_CommonEvent (SDLTest_CommonState* state, SDL_Event* event,
+                          int* done);
 
 /**
  * \brief Close test window.

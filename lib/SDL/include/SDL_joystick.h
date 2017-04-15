@@ -108,7 +108,8 @@ extern DECLSPEC SDL_Joystick* SDLCALL SDL_JoystickOpen (int device_index);
 /**
  * Return the SDL_Joystick associated with an instance id.
  */
-extern DECLSPEC SDL_Joystick* SDLCALL SDL_JoystickFromInstanceID (SDL_JoystickID joyid);
+extern DECLSPEC SDL_Joystick* SDLCALL SDL_JoystickFromInstanceID (
+    SDL_JoystickID joyid);
 
 /**
  *  Return the name for this currently opened joystick.
@@ -119,34 +120,40 @@ extern DECLSPEC const char* SDLCALL SDL_JoystickName (SDL_Joystick* joystick);
 /**
  *  Return the GUID for the joystick at this index
  */
-extern DECLSPEC SDL_JoystickGUID SDLCALL SDL_JoystickGetDeviceGUID (int device_index);
+extern DECLSPEC SDL_JoystickGUID SDLCALL SDL_JoystickGetDeviceGUID (
+    int device_index);
 
 /**
  *  Return the GUID for this opened joystick
  */
-extern DECLSPEC SDL_JoystickGUID SDLCALL SDL_JoystickGetGUID (SDL_Joystick* joystick);
+extern DECLSPEC SDL_JoystickGUID SDLCALL SDL_JoystickGetGUID (
+    SDL_Joystick* joystick);
 
 /**
  *  Return a string representation for this guid. pszGUID must point to at least 33 bytes
  *  (32 for the string plus a NULL terminator).
  */
-extern DECLSPEC void SDLCALL SDL_JoystickGetGUIDString (SDL_JoystickGUID guid, char* pszGUID,
+extern DECLSPEC void SDLCALL SDL_JoystickGetGUIDString (SDL_JoystickGUID guid,
+        char* pszGUID,
         int cbGUID);
 
 /**
  *  convert a string into a joystick formatted guid
  */
-extern DECLSPEC SDL_JoystickGUID SDLCALL SDL_JoystickGetGUIDFromString (const char* pchGUID);
+extern DECLSPEC SDL_JoystickGUID SDLCALL SDL_JoystickGetGUIDFromString (
+    const char* pchGUID);
 
 /**
  *  Returns SDL_TRUE if the joystick has been opened and currently connected, or SDL_FALSE if it has not.
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_JoystickGetAttached (SDL_Joystick* joystick);
+extern DECLSPEC SDL_bool SDLCALL SDL_JoystickGetAttached (
+    SDL_Joystick* joystick);
 
 /**
  *  Get the instance ID of an opened joystick or -1 if the joystick is invalid.
  */
-extern DECLSPEC SDL_JoystickID SDLCALL SDL_JoystickInstanceID (SDL_Joystick* joystick);
+extern DECLSPEC SDL_JoystickID SDLCALL SDL_JoystickInstanceID (
+    SDL_Joystick* joystick);
 
 /**
  *  Get the number of general axis controls on a joystick.

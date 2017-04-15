@@ -196,7 +196,8 @@ extern DECLSPEC SDL_Renderer* SDLCALL SDL_CreateRenderer (SDL_Window* window,
  *  \sa SDL_CreateRenderer()
  *  \sa SDL_DestroyRenderer()
  */
-extern DECLSPEC SDL_Renderer* SDLCALL SDL_CreateSoftwareRenderer (SDL_Surface* surface);
+extern DECLSPEC SDL_Renderer* SDLCALL SDL_CreateSoftwareRenderer (
+    SDL_Surface* surface);
 
 /**
  *  \brief Get the renderer associated with a window.
@@ -250,8 +251,9 @@ extern DECLSPEC SDL_Texture* SDLCALL SDL_CreateTexture (SDL_Renderer* renderer,
  *  \sa SDL_QueryTexture()
  *  \sa SDL_DestroyTexture()
  */
-extern DECLSPEC SDL_Texture* SDLCALL SDL_CreateTextureFromSurface (SDL_Renderer* renderer,
-        SDL_Surface* surface);
+extern DECLSPEC SDL_Texture* SDLCALL SDL_CreateTextureFromSurface (
+    SDL_Renderer* renderer,
+    SDL_Surface* surface);
 
 /**
  *  \brief Query the attributes of a texture
@@ -435,7 +437,8 @@ extern DECLSPEC void SDLCALL SDL_UnlockTexture (SDL_Texture* texture);
  *
  * \return SDL_TRUE if supported, SDL_FALSE if not.
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_RenderTargetSupported (SDL_Renderer* renderer);
+extern DECLSPEC SDL_bool SDLCALL SDL_RenderTargetSupported (
+    SDL_Renderer* renderer);
 
 /**
  * \brief Set a texture as the current rendering target.
@@ -457,7 +460,8 @@ extern DECLSPEC int SDLCALL SDL_SetRenderTarget (SDL_Renderer* renderer,
  *
  *  \sa SDL_SetRenderTarget()
  */
-extern DECLSPEC SDL_Texture* SDLCALL SDL_GetRenderTarget (SDL_Renderer* renderer);
+extern DECLSPEC SDL_Texture* SDLCALL SDL_GetRenderTarget (
+    SDL_Renderer* renderer);
 
 /**
  *  \brief Set device independent resolution for rendering
@@ -482,7 +486,8 @@ extern DECLSPEC SDL_Texture* SDLCALL SDL_GetRenderTarget (SDL_Renderer* renderer
  *  \sa SDL_RenderSetScale()
  *  \sa SDL_RenderSetViewport()
  */
-extern DECLSPEC int SDLCALL SDL_RenderSetLogicalSize (SDL_Renderer* renderer, int w, int h);
+extern DECLSPEC int SDLCALL SDL_RenderSetLogicalSize (SDL_Renderer* renderer,
+        int w, int h);
 
 /**
  *  \brief Get device independent resolution for rendering
@@ -493,7 +498,8 @@ extern DECLSPEC int SDLCALL SDL_RenderSetLogicalSize (SDL_Renderer* renderer, in
  *
  *  \sa SDL_RenderSetLogicalSize()
  */
-extern DECLSPEC void SDLCALL SDL_RenderGetLogicalSize (SDL_Renderer* renderer, int* w, int* h);
+extern DECLSPEC void SDLCALL SDL_RenderGetLogicalSize (SDL_Renderer* renderer,
+        int* w, int* h);
 
 /**
  *  \brief Set whether to force integer scales for resolution-independent rendering
@@ -517,7 +523,8 @@ extern DECLSPEC int SDLCALL SDL_RenderSetIntegerScale (SDL_Renderer* renderer,
  *
  *  \sa SDL_RenderSetIntegerScale()
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_RenderGetIntegerScale (SDL_Renderer* renderer);
+extern DECLSPEC SDL_bool SDLCALL SDL_RenderGetIntegerScale (
+    SDL_Renderer* renderer);
 
 /**
  *  \brief Set the drawing area for rendering on the current target.
@@ -578,7 +585,8 @@ extern DECLSPEC void SDLCALL SDL_RenderGetClipRect (SDL_Renderer* renderer,
  *
  *  \sa SDL_RenderGetClipRect()
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_RenderIsClipEnabled (SDL_Renderer* renderer);
+extern DECLSPEC SDL_bool SDLCALL SDL_RenderIsClipEnabled (
+    SDL_Renderer* renderer);
 
 
 /**
@@ -878,7 +886,8 @@ extern DECLSPEC void SDLCALL SDL_DestroyRenderer (SDL_Renderer* renderer);
  *
  *  \return 0 on success, or -1 if the operation is not supported
  */
-extern DECLSPEC int SDLCALL SDL_GL_BindTexture (SDL_Texture* texture, float* texw, float* texh);
+extern DECLSPEC int SDLCALL SDL_GL_BindTexture (SDL_Texture* texture,
+                                                float* texw, float* texh);
 
 /**
  *  \brief Unbind a texture from the current OpenGL/ES/ES2 context.

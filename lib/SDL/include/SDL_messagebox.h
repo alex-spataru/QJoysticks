@@ -110,7 +110,8 @@ typedef struct {
  *        block execution of that thread until the user clicks a button or
  *        closes the messagebox.
  */
-extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData* messageboxdata,
+extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData*
+                                                messageboxdata,
                                                 int* buttonid);
 
 /**
@@ -125,7 +126,8 @@ extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData* messag
  *
  *  \sa SDL_ShowMessageBox
  */
-extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox (Uint32 flags, const char* title,
+extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox (Uint32 flags,
+        const char* title,
         const char* message, SDL_Window* window);
 
 

@@ -31,57 +31,57 @@
 #include "SDL_config.h"
 
 #ifdef HAVE_SYS_TYPES_H
-    #include <sys/types.h>
+#include <sys/types.h>
 #endif
 #ifdef HAVE_STDIO_H
-    #include <stdio.h>
+#include <stdio.h>
 #endif
 #if defined(STDC_HEADERS)
-    #include <stdlib.h>
-    #include <stddef.h>
-    #include <stdarg.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <stdarg.h>
 #else
-    #if defined(HAVE_STDLIB_H)
-        #include <stdlib.h>
-    #elif defined(HAVE_MALLOC_H)
-        #include <malloc.h>
-    #endif
-    #if defined(HAVE_STDDEF_H)
-        #include <stddef.h>
-    #endif
-    #if defined(HAVE_STDARG_H)
-        #include <stdarg.h>
-    #endif
+#if defined(HAVE_STDLIB_H)
+#include <stdlib.h>
+#elif defined(HAVE_MALLOC_H)
+#include <malloc.h>
+#endif
+#if defined(HAVE_STDDEF_H)
+#include <stddef.h>
+#endif
+#if defined(HAVE_STDARG_H)
+#include <stdarg.h>
+#endif
 #endif
 #ifdef HAVE_STRING_H
-    #if !defined(STDC_HEADERS) && defined(HAVE_MEMORY_H)
-        #include <memory.h>
-    #endif
-    #include <string.h>
+#if !defined(STDC_HEADERS) && defined(HAVE_MEMORY_H)
+#include <memory.h>
+#endif
+#include <string.h>
 #endif
 #ifdef HAVE_STRINGS_H
-    #include <strings.h>
+#include <strings.h>
 #endif
 #if defined(HAVE_INTTYPES_H)
-    #include <inttypes.h>
+#include <inttypes.h>
 #elif defined(HAVE_STDINT_H)
-    #include <stdint.h>
+#include <stdint.h>
 #endif
 #ifdef HAVE_CTYPE_H
-    #include <ctype.h>
+#include <ctype.h>
 #endif
 #ifdef HAVE_MATH_H
-    #if defined(__WINRT__)
-        /* Defining _USE_MATH_DEFINES is required to get M_PI to be defined on
-        WinRT.  See http://msdn.microsoft.com/en-us/library/4hwaceh6.aspx
-        for more information.
-        */
-        #define _USE_MATH_DEFINES
-    #endif
-    #include <math.h>
+#if defined(__WINRT__)
+/* Defining _USE_MATH_DEFINES is required to get M_PI to be defined on
+WinRT.  See http://msdn.microsoft.com/en-us/library/4hwaceh6.aspx
+for more information.
+*/
+#define _USE_MATH_DEFINES
+#endif
+#include <math.h>
 #endif
 #ifdef HAVE_FLOAT_H
-    #include <float.h>
+#include <float.h>
 #endif
 
 /**
@@ -105,13 +105,13 @@
  */
 /* @{ */
 #ifdef __cplusplus
-    #define SDL_reinterpret_cast(type, expression) reinterpret_cast<type>(expression)
-    #define SDL_static_cast(type, expression) static_cast<type>(expression)
-    #define SDL_const_cast(type, expression) const_cast<type>(expression)
+#define SDL_reinterpret_cast(type, expression) reinterpret_cast<type>(expression)
+#define SDL_static_cast(type, expression) static_cast<type>(expression)
+#define SDL_const_cast(type, expression) const_cast<type>(expression)
 #else
-    #define SDL_reinterpret_cast(type, expression) ((type)(expression))
-    #define SDL_static_cast(type, expression) ((type)(expression))
-    #define SDL_const_cast(type, expression) ((type)(expression))
+#define SDL_reinterpret_cast(type, expression) ((type)(expression))
+#define SDL_static_cast(type, expression) ((type)(expression))
+#define SDL_const_cast(type, expression) ((type)(expression))
 #endif
 /* @} *//* Cast operators */
 
@@ -172,106 +172,106 @@ typedef uint64_t Uint64;
  * <stdint.h> should define these but this is not true all platforms.
  * (for example win32) */
 #ifndef SDL_PRIs64
-    #ifdef PRIs64
-        #define SDL_PRIs64 PRIs64
-    #elif defined(__WIN32__)
-        #define SDL_PRIs64 "I64d"
-    #elif defined(__LINUX__) && defined(__LP64__)
-        #define SDL_PRIs64 "ld"
-    #else
-        #define SDL_PRIs64 "lld"
-    #endif
+#ifdef PRIs64
+#define SDL_PRIs64 PRIs64
+#elif defined(__WIN32__)
+#define SDL_PRIs64 "I64d"
+#elif defined(__LINUX__) && defined(__LP64__)
+#define SDL_PRIs64 "ld"
+#else
+#define SDL_PRIs64 "lld"
+#endif
 #endif
 #ifndef SDL_PRIu64
-    #ifdef PRIu64
-        #define SDL_PRIu64 PRIu64
-    #elif defined(__WIN32__)
-        #define SDL_PRIu64 "I64u"
-    #elif defined(__LINUX__) && defined(__LP64__)
-        #define SDL_PRIu64 "lu"
-    #else
-        #define SDL_PRIu64 "llu"
-    #endif
+#ifdef PRIu64
+#define SDL_PRIu64 PRIu64
+#elif defined(__WIN32__)
+#define SDL_PRIu64 "I64u"
+#elif defined(__LINUX__) && defined(__LP64__)
+#define SDL_PRIu64 "lu"
+#else
+#define SDL_PRIu64 "llu"
+#endif
 #endif
 #ifndef SDL_PRIx64
-    #ifdef PRIx64
-        #define SDL_PRIx64 PRIx64
-    #elif defined(__WIN32__)
-        #define SDL_PRIx64 "I64x"
-    #elif defined(__LINUX__) && defined(__LP64__)
-        #define SDL_PRIx64 "lx"
-    #else
-        #define SDL_PRIx64 "llx"
-    #endif
+#ifdef PRIx64
+#define SDL_PRIx64 PRIx64
+#elif defined(__WIN32__)
+#define SDL_PRIx64 "I64x"
+#elif defined(__LINUX__) && defined(__LP64__)
+#define SDL_PRIx64 "lx"
+#else
+#define SDL_PRIx64 "llx"
+#endif
 #endif
 #ifndef SDL_PRIX64
-    #ifdef PRIX64
-        #define SDL_PRIX64 PRIX64
-    #elif defined(__WIN32__)
-        #define SDL_PRIX64 "I64X"
-    #elif defined(__LINUX__) && defined(__LP64__)
-        #define SDL_PRIX64 "lX"
-    #else
-        #define SDL_PRIX64 "llX"
-    #endif
+#ifdef PRIX64
+#define SDL_PRIX64 PRIX64
+#elif defined(__WIN32__)
+#define SDL_PRIX64 "I64X"
+#elif defined(__LINUX__) && defined(__LP64__)
+#define SDL_PRIX64 "lX"
+#else
+#define SDL_PRIX64 "llX"
+#endif
 #endif
 
 /* Annotations to help code analysis tools */
 #ifdef SDL_DISABLE_ANALYZE_MACROS
-    #define SDL_IN_BYTECAP(x)
-    #define SDL_INOUT_Z_CAP(x)
-    #define SDL_OUT_Z_CAP(x)
-    #define SDL_OUT_CAP(x)
-    #define SDL_OUT_BYTECAP(x)
-    #define SDL_OUT_Z_BYTECAP(x)
-    #define SDL_PRINTF_FORMAT_STRING
-    #define SDL_SCANF_FORMAT_STRING
-    #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
-    #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
+#define SDL_IN_BYTECAP(x)
+#define SDL_INOUT_Z_CAP(x)
+#define SDL_OUT_Z_CAP(x)
+#define SDL_OUT_CAP(x)
+#define SDL_OUT_BYTECAP(x)
+#define SDL_OUT_Z_BYTECAP(x)
+#define SDL_PRINTF_FORMAT_STRING
+#define SDL_SCANF_FORMAT_STRING
+#define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
+#define SDL_SCANF_VARARG_FUNC( fmtargnumber )
 #else
-    #if defined(_MSC_VER) && (_MSC_VER >= 1600) /* VS 2010 and above */
-        #include <sal.h>
+#if defined(_MSC_VER) && (_MSC_VER >= 1600) /* VS 2010 and above */
+#include <sal.h>
 
-        #define SDL_IN_BYTECAP(x) _In_bytecount_(x)
-        #define SDL_INOUT_Z_CAP(x) _Inout_z_cap_(x)
-        #define SDL_OUT_Z_CAP(x) _Out_z_cap_(x)
-        #define SDL_OUT_CAP(x) _Out_cap_(x)
-        #define SDL_OUT_BYTECAP(x) _Out_bytecap_(x)
-        #define SDL_OUT_Z_BYTECAP(x) _Out_z_bytecap_(x)
+#define SDL_IN_BYTECAP(x) _In_bytecount_(x)
+#define SDL_INOUT_Z_CAP(x) _Inout_z_cap_(x)
+#define SDL_OUT_Z_CAP(x) _Out_z_cap_(x)
+#define SDL_OUT_CAP(x) _Out_cap_(x)
+#define SDL_OUT_BYTECAP(x) _Out_bytecap_(x)
+#define SDL_OUT_Z_BYTECAP(x) _Out_z_bytecap_(x)
 
-        #define SDL_PRINTF_FORMAT_STRING _Printf_format_string_
-        #define SDL_SCANF_FORMAT_STRING _Scanf_format_string_impl_
-    #else
-        #define SDL_IN_BYTECAP(x)
-        #define SDL_INOUT_Z_CAP(x)
-        #define SDL_OUT_Z_CAP(x)
-        #define SDL_OUT_CAP(x)
-        #define SDL_OUT_BYTECAP(x)
-        #define SDL_OUT_Z_BYTECAP(x)
-        #define SDL_PRINTF_FORMAT_STRING
-        #define SDL_SCANF_FORMAT_STRING
-    #endif
-    #if defined(__GNUC__)
-        #define SDL_PRINTF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __printf__, fmtargnumber, fmtargnumber+1 )))
-        #define SDL_SCANF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __scanf__, fmtargnumber, fmtargnumber+1 )))
-    #else
-        #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
-        #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
-    #endif
+#define SDL_PRINTF_FORMAT_STRING _Printf_format_string_
+#define SDL_SCANF_FORMAT_STRING _Scanf_format_string_impl_
+#else
+#define SDL_IN_BYTECAP(x)
+#define SDL_INOUT_Z_CAP(x)
+#define SDL_OUT_Z_CAP(x)
+#define SDL_OUT_CAP(x)
+#define SDL_OUT_BYTECAP(x)
+#define SDL_OUT_Z_BYTECAP(x)
+#define SDL_PRINTF_FORMAT_STRING
+#define SDL_SCANF_FORMAT_STRING
+#endif
+#if defined(__GNUC__)
+#define SDL_PRINTF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __printf__, fmtargnumber, fmtargnumber+1 )))
+#define SDL_SCANF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __scanf__, fmtargnumber, fmtargnumber+1 )))
+#else
+#define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
+#define SDL_SCANF_VARARG_FUNC( fmtargnumber )
+#endif
 #endif /* SDL_DISABLE_ANALYZE_MACROS */
 
 #define SDL_COMPILE_TIME_ASSERT(name, x)               \
     typedef int SDL_dummy_ ## name[(x) * 2 - 1]
 /** \cond */
 #ifndef DOXYGEN_SHOULD_IGNORE_THIS
-    SDL_COMPILE_TIME_ASSERT (uint8, sizeof (Uint8) == 1);
-    SDL_COMPILE_TIME_ASSERT (sint8, sizeof (Sint8) == 1);
-    SDL_COMPILE_TIME_ASSERT (uint16, sizeof (Uint16) == 2);
-    SDL_COMPILE_TIME_ASSERT (sint16, sizeof (Sint16) == 2);
-    SDL_COMPILE_TIME_ASSERT (uint32, sizeof (Uint32) == 4);
-    SDL_COMPILE_TIME_ASSERT (sint32, sizeof (Sint32) == 4);
-    SDL_COMPILE_TIME_ASSERT (uint64, sizeof (Uint64) == 8);
-    SDL_COMPILE_TIME_ASSERT (sint64, sizeof (Sint64) == 8);
+SDL_COMPILE_TIME_ASSERT (uint8, sizeof (Uint8) == 1);
+SDL_COMPILE_TIME_ASSERT (sint8, sizeof (Sint8) == 1);
+SDL_COMPILE_TIME_ASSERT (uint16, sizeof (Uint16) == 2);
+SDL_COMPILE_TIME_ASSERT (sint16, sizeof (Sint16) == 2);
+SDL_COMPILE_TIME_ASSERT (uint32, sizeof (Uint32) == 4);
+SDL_COMPILE_TIME_ASSERT (sint32, sizeof (Sint32) == 4);
+SDL_COMPILE_TIME_ASSERT (uint64, sizeof (Uint64) == 8);
+SDL_COMPILE_TIME_ASSERT (sint64, sizeof (Sint64) == 8);
 #endif /* DOXYGEN_SHOULD_IGNORE_THIS */
 /** \endcond */
 
@@ -336,7 +336,8 @@ extern DECLSPEC void* SDLCALL SDL_realloc (void* mem, size_t size);
 extern DECLSPEC void SDLCALL SDL_free (void* mem);
 
 extern DECLSPEC char* SDLCALL SDL_getenv (const char* name);
-extern DECLSPEC int SDLCALL SDL_setenv (const char* name, const char* value, int overwrite);
+extern DECLSPEC int SDLCALL SDL_setenv (const char* name, const char* value,
+                                        int overwrite);
 
 extern DECLSPEC void SDLCALL SDL_qsort (void* base, size_t nmemb, size_t size,
                                         int (*compare) (const void*, const void*));
@@ -353,7 +354,8 @@ extern DECLSPEC int SDLCALL SDL_isspace (int x);
 extern DECLSPEC int SDLCALL SDL_toupper (int x);
 extern DECLSPEC int SDLCALL SDL_tolower (int x);
 
-extern DECLSPEC void* SDLCALL SDL_memset (SDL_OUT_BYTECAP (len) void* dst, int c, size_t len);
+extern DECLSPEC void* SDLCALL SDL_memset (SDL_OUT_BYTECAP (len) void* dst,
+                                          int c, size_t len);
 
 #define SDL_zero(x) SDL_memset(&(x), 0, sizeof((x)))
 #define SDL_zerop(x) SDL_memset((x), 0, sizeof(*(x)))
@@ -397,20 +399,26 @@ extern DECLSPEC void* SDLCALL SDL_memcpy (SDL_OUT_BYTECAP (len) void* dst,
 
 extern DECLSPEC void* SDLCALL SDL_memmove (SDL_OUT_BYTECAP (len) void* dst,
                                            SDL_IN_BYTECAP (len) const void* src, size_t len);
-extern DECLSPEC int SDLCALL SDL_memcmp (const void* s1, const void* s2, size_t len);
+extern DECLSPEC int SDLCALL SDL_memcmp (const void* s1, const void* s2,
+                                        size_t len);
 
 extern DECLSPEC size_t SDLCALL SDL_wcslen (const wchar_t* wstr);
-extern DECLSPEC size_t SDLCALL SDL_wcslcpy (SDL_OUT_Z_CAP (maxlen) wchar_t* dst, const wchar_t* src,
+extern DECLSPEC size_t SDLCALL SDL_wcslcpy (SDL_OUT_Z_CAP (maxlen) wchar_t* dst,
+                                            const wchar_t* src,
                                             size_t maxlen);
-extern DECLSPEC size_t SDLCALL SDL_wcslcat (SDL_INOUT_Z_CAP (maxlen) wchar_t* dst,
+extern DECLSPEC size_t SDLCALL SDL_wcslcat (SDL_INOUT_Z_CAP (
+                                                maxlen) wchar_t* dst,
                                             const wchar_t* src, size_t maxlen);
 
 extern DECLSPEC size_t SDLCALL SDL_strlen (const char* str);
-extern DECLSPEC size_t SDLCALL SDL_strlcpy (SDL_OUT_Z_CAP (maxlen) char* dst, const char* src,
+extern DECLSPEC size_t SDLCALL SDL_strlcpy (SDL_OUT_Z_CAP (maxlen) char* dst,
+                                            const char* src,
                                             size_t maxlen);
-extern DECLSPEC size_t SDLCALL SDL_utf8strlcpy (SDL_OUT_Z_CAP (dst_bytes) char* dst,
+extern DECLSPEC size_t SDLCALL SDL_utf8strlcpy (SDL_OUT_Z_CAP (
+        dst_bytes) char* dst,
                                                 const char* src, size_t dst_bytes);
-extern DECLSPEC size_t SDLCALL SDL_strlcat (SDL_INOUT_Z_CAP (maxlen) char* dst, const char* src,
+extern DECLSPEC size_t SDLCALL SDL_strlcat (SDL_INOUT_Z_CAP (maxlen) char* dst,
+                                            const char* src,
                                             size_t maxlen);
 extern DECLSPEC char* SDLCALL SDL_strdup (const char* str);
 extern DECLSPEC char* SDLCALL SDL_strrev (char* str);
@@ -418,34 +426,47 @@ extern DECLSPEC char* SDLCALL SDL_strupr (char* str);
 extern DECLSPEC char* SDLCALL SDL_strlwr (char* str);
 extern DECLSPEC char* SDLCALL SDL_strchr (const char* str, int c);
 extern DECLSPEC char* SDLCALL SDL_strrchr (const char* str, int c);
-extern DECLSPEC char* SDLCALL SDL_strstr (const char* haystack, const char* needle);
+extern DECLSPEC char* SDLCALL SDL_strstr (const char* haystack,
+                                          const char* needle);
 
 extern DECLSPEC char* SDLCALL SDL_itoa (int value, char* str, int radix);
-extern DECLSPEC char* SDLCALL SDL_uitoa (unsigned int value, char* str, int radix);
+extern DECLSPEC char* SDLCALL SDL_uitoa (unsigned int value, char* str,
+                                         int radix);
 extern DECLSPEC char* SDLCALL SDL_ltoa (long value, char* str, int radix);
-extern DECLSPEC char* SDLCALL SDL_ultoa (unsigned long value, char* str, int radix);
+extern DECLSPEC char* SDLCALL SDL_ultoa (unsigned long value, char* str,
+                                         int radix);
 extern DECLSPEC char* SDLCALL SDL_lltoa (Sint64 value, char* str, int radix);
 extern DECLSPEC char* SDLCALL SDL_ulltoa (Uint64 value, char* str, int radix);
 
 extern DECLSPEC int SDLCALL SDL_atoi (const char* str);
 extern DECLSPEC double SDLCALL SDL_atof (const char* str);
-extern DECLSPEC long SDLCALL SDL_strtol (const char* str, char** endp, int base);
-extern DECLSPEC unsigned long SDLCALL SDL_strtoul (const char* str, char** endp, int base);
-extern DECLSPEC Sint64 SDLCALL SDL_strtoll (const char* str, char** endp, int base);
-extern DECLSPEC Uint64 SDLCALL SDL_strtoull (const char* str, char** endp, int base);
+extern DECLSPEC long SDLCALL SDL_strtol (const char* str, char** endp,
+                                         int base);
+extern DECLSPEC unsigned long SDLCALL SDL_strtoul (const char* str, char** endp,
+        int base);
+extern DECLSPEC Sint64 SDLCALL SDL_strtoll (const char* str, char** endp,
+                                            int base);
+extern DECLSPEC Uint64 SDLCALL SDL_strtoull (const char* str, char** endp,
+                                             int base);
 extern DECLSPEC double SDLCALL SDL_strtod (const char* str, char** endp);
 
 extern DECLSPEC int SDLCALL SDL_strcmp (const char* str1, const char* str2);
-extern DECLSPEC int SDLCALL SDL_strncmp (const char* str1, const char* str2, size_t maxlen);
+extern DECLSPEC int SDLCALL SDL_strncmp (const char* str1, const char* str2,
+                                         size_t maxlen);
 extern DECLSPEC int SDLCALL SDL_strcasecmp (const char* str1, const char* str2);
-extern DECLSPEC int SDLCALL SDL_strncasecmp (const char* str1, const char* str2, size_t len);
+extern DECLSPEC int SDLCALL SDL_strncasecmp (const char* str1, const char* str2,
+                                             size_t len);
 
-extern DECLSPEC int SDLCALL SDL_sscanf (const char* text, SDL_SCANF_FORMAT_STRING const char* fmt,
+extern DECLSPEC int SDLCALL SDL_sscanf (const char* text,
+                                        SDL_SCANF_FORMAT_STRING const char* fmt,
                                         ...) SDL_SCANF_VARARG_FUNC (2);
-extern DECLSPEC int SDLCALL SDL_vsscanf (const char* text, const char* fmt, va_list ap);
-extern DECLSPEC int SDLCALL SDL_snprintf (SDL_OUT_Z_CAP (maxlen) char* text, size_t maxlen,
+extern DECLSPEC int SDLCALL SDL_vsscanf (const char* text, const char* fmt,
+                                         va_list ap);
+extern DECLSPEC int SDLCALL SDL_snprintf (SDL_OUT_Z_CAP (maxlen) char* text,
+                                          size_t maxlen,
                                           SDL_PRINTF_FORMAT_STRING const char* fmt, ... ) SDL_PRINTF_VARARG_FUNC (3);
-extern DECLSPEC int SDLCALL SDL_vsnprintf (SDL_OUT_Z_CAP (maxlen) char* text, size_t maxlen,
+extern DECLSPEC int SDLCALL SDL_vsnprintf (SDL_OUT_Z_CAP (maxlen) char* text,
+                                           size_t maxlen,
                                            const char* fmt, va_list ap);
 
 #ifndef HAVE_M_PI

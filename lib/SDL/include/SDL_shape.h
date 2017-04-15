@@ -63,7 +63,8 @@ extern "C" {
  *
  *  \sa SDL_DestroyWindow()
  */
-extern DECLSPEC SDL_Window* SDLCALL SDL_CreateShapedWindow (const char* title, unsigned int x,
+extern DECLSPEC SDL_Window* SDLCALL SDL_CreateShapedWindow (const char* title,
+        unsigned int x,
         unsigned int y, unsigned int w, unsigned int h, Uint32 flags);
 
 /**
@@ -118,7 +119,8 @@ typedef struct SDL_WindowShapeMode {
  * \sa SDL_WindowShapeMode
  * \sa SDL_GetShapedWindowMode.
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowShape (SDL_Window* window, SDL_Surface* shape,
+extern DECLSPEC int SDLCALL SDL_SetWindowShape (SDL_Window* window,
+                                                SDL_Surface* shape,
                                                 SDL_WindowShapeMode* shape_mode);
 
 /**

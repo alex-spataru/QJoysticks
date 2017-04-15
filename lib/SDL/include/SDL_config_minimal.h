@@ -35,23 +35,23 @@
 
 /* Most everything except Visual Studio 2008 and earlier has stdint.h now */
 #if defined(_MSC_VER) && (_MSC_VER < 1600)
-    /* Here are some reasonable defaults */
-    typedef unsigned int size_t;
-    typedef signed char int8_t;
-    typedef unsigned char uint8_t;
-    typedef signed short int16_t;
-    typedef unsigned short uint16_t;
-    typedef signed int int32_t;
-    typedef unsigned int uint32_t;
-    typedef signed long long int64_t;
-    typedef unsigned long long uint64_t;
-    typedef unsigned long uintptr_t;
+/* Here are some reasonable defaults */
+typedef unsigned int size_t;
+typedef signed char int8_t;
+typedef unsigned char uint8_t;
+typedef signed short int16_t;
+typedef unsigned short uint16_t;
+typedef signed int int32_t;
+typedef unsigned int uint32_t;
+typedef signed long long int64_t;
+typedef unsigned long long uint64_t;
+typedef unsigned long uintptr_t;
 #else
-    #define HAVE_STDINT_H 1
+#define HAVE_STDINT_H 1
 #endif /* Visual Studio 2008 */
 
 #ifdef __GNUC__
-    #define HAVE_GCC_SYNC_LOCK_TEST_AND_SET 1
+#define HAVE_GCC_SYNC_LOCK_TEST_AND_SET 1
 #endif
 
 /* Enable the dummy audio driver (src/audio/dummy/\*.c) */

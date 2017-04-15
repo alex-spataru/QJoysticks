@@ -65,7 +65,8 @@ extern DECLSPEC int SDLCALL SDL_SaveAllDollarTemplates (SDL_RWops* dst);
  *
  *
  */
-extern DECLSPEC int SDLCALL SDL_SaveDollarTemplate (SDL_GestureID gestureId, SDL_RWops* dst);
+extern DECLSPEC int SDLCALL SDL_SaveDollarTemplate (SDL_GestureID gestureId,
+        SDL_RWops* dst);
 
 
 /**
@@ -73,7 +74,8 @@ extern DECLSPEC int SDLCALL SDL_SaveDollarTemplate (SDL_GestureID gestureId, SDL
  *
  *
  */
-extern DECLSPEC int SDLCALL SDL_LoadDollarTemplates (SDL_TouchID touchId, SDL_RWops* src);
+extern DECLSPEC int SDLCALL SDL_LoadDollarTemplates (SDL_TouchID touchId,
+        SDL_RWops* src);
 
 
 /* Ends C function definitions when using C++ */

@@ -27,12 +27,19 @@ VirtualJoystick::VirtualJoystick (QObject* parent) : QObject (parent)
 {
     m_axisRange = 1;
     m_joystickEnabled = false;
-
-    m_joystick.numAxes = 6;
-    m_joystick.numPOVs = 1;
-    m_joystick.numButtons  = 10;
     m_joystick.blacklisted = false;
     m_joystick.name = tr ("Virtual Joystick");
+
+    /* Initialize POVs */
+    m_joystick.povs.append (0);
+
+    /* Initialize axes */
+    for (int i = 0; i < 6; ++i)
+        m_joystick.axes.append (0);
+
+    /* Initialize buttons */
+    for (int i = 0; i < 10; ++i)
+        m_joystick.buttons.append (false);
 
     qApp->installEventFilter (this);
 }

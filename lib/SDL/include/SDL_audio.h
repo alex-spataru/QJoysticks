@@ -517,7 +517,8 @@ extern DECLSPEC void SDLCALL SDL_MixAudioFormat (Uint8* dst,
  *  \sa SDL_GetQueuedAudioSize
  *  \sa SDL_ClearQueuedAudio
  */
-extern DECLSPEC int SDLCALL SDL_QueueAudio (SDL_AudioDeviceID dev, const void* data, Uint32 len);
+extern DECLSPEC int SDLCALL SDL_QueueAudio (SDL_AudioDeviceID dev,
+                                            const void* data, Uint32 len);
 
 /**
  *  Dequeue more audio on non-callback devices.
@@ -563,7 +564,8 @@ extern DECLSPEC int SDLCALL SDL_QueueAudio (SDL_AudioDeviceID dev, const void* d
  *  \sa SDL_GetQueuedAudioSize
  *  \sa SDL_ClearQueuedAudio
  */
-extern DECLSPEC Uint32 SDLCALL SDL_DequeueAudio (SDL_AudioDeviceID dev, void* data, Uint32 len);
+extern DECLSPEC Uint32 SDLCALL SDL_DequeueAudio (SDL_AudioDeviceID dev,
+                                                 void* data, Uint32 len);
 
 /**
  *  Get the number of bytes of still-queued audio.

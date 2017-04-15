@@ -39,9 +39,9 @@
 struct QJoystickDevice {
     int     id;          /**< Holds the ID of the joystick */
     QString name;        /**< Holds the name/title of the joystick */
-    int     numAxes;     /**< Holds the number of axes of the joystick */
-    int     numPOVs;     /**< Holds the number of POVs of the joystick */
-    int     numButtons;  /**< Holds the number of buttons of the joystick */
+    QList<int> povs;     /**< Holds the values for each POV */
+    QList<double> axes;  /**< Holds the values for each axis */
+    QList<bool> buttons; /**< Holds the values for each button */
     bool    blacklisted; /**< Holds \c true if the joystick is disabled */
 };
 

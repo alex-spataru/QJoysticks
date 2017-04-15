@@ -33,68 +33,68 @@
    older versions of the Windows SDK.
 */
 #ifndef NTDDI_WINBLUE
-    #define NTDDI_WINBLUE 0x06030000
+#define NTDDI_WINBLUE 0x06030000
 #endif
 #ifndef NTDDI_WIN10
-    #define NTDDI_WIN10 0x0A000000
+#define NTDDI_WIN10 0x0A000000
 #endif
 
 /* This is a set of defines to configure the SDL features */
 
 #if !defined(_STDINT_H_) && (!defined(HAVE_STDINT_H) || !_HAVE_STDINT_H)
-    #if defined(__GNUC__) || defined(__DMC__) || defined(__WATCOMC__)
-        #define HAVE_STDINT_H   1
-    #elif defined(_MSC_VER)
-        typedef signed __int8 int8_t;
-        typedef unsigned __int8 uint8_t;
-        typedef signed __int16 int16_t;
-        typedef unsigned __int16 uint16_t;
-        typedef signed __int32 int32_t;
-        typedef unsigned __int32 uint32_t;
-        typedef signed __int64 int64_t;
-        typedef unsigned __int64 uint64_t;
-        #ifndef _UINTPTR_T_DEFINED
-            #ifdef  _WIN64
-                typedef unsigned __int64 uintptr_t;
-            #else
-                typedef unsigned int uintptr_t;
-            #endif
-            #define _UINTPTR_T_DEFINED
-        #endif
-        /* Older Visual C++ headers don't have the Win64-compatible typedefs... */
-        #if ((_MSC_VER <= 1200) && (!defined(DWORD_PTR)))
-            #define DWORD_PTR DWORD
-        #endif
-        #if ((_MSC_VER <= 1200) && (!defined(LONG_PTR)))
-            #define LONG_PTR LONG
-        #endif
-    #else /* !__GNUC__ && !_MSC_VER */
-        typedef signed char int8_t;
-        typedef unsigned char uint8_t;
-        typedef signed short int16_t;
-        typedef unsigned short uint16_t;
-        typedef signed int int32_t;
-        typedef unsigned int uint32_t;
-        typedef signed long long int64_t;
-        typedef unsigned long long uint64_t;
-        #ifndef _SIZE_T_DEFINED_
-            #define _SIZE_T_DEFINED_
-            typedef unsigned int size_t;
-        #endif
-        typedef unsigned int uintptr_t;
-    #endif /* __GNUC__ || _MSC_VER */
+#if defined(__GNUC__) || defined(__DMC__) || defined(__WATCOMC__)
+#define HAVE_STDINT_H   1
+#elif defined(_MSC_VER)
+typedef signed __int8 int8_t;
+typedef unsigned __int8 uint8_t;
+typedef signed __int16 int16_t;
+typedef unsigned __int16 uint16_t;
+typedef signed __int32 int32_t;
+typedef unsigned __int32 uint32_t;
+typedef signed __int64 int64_t;
+typedef unsigned __int64 uint64_t;
+#ifndef _UINTPTR_T_DEFINED
+#ifdef  _WIN64
+typedef unsigned __int64 uintptr_t;
+#else
+typedef unsigned int uintptr_t;
+#endif
+#define _UINTPTR_T_DEFINED
+#endif
+/* Older Visual C++ headers don't have the Win64-compatible typedefs... */
+#if ((_MSC_VER <= 1200) && (!defined(DWORD_PTR)))
+#define DWORD_PTR DWORD
+#endif
+#if ((_MSC_VER <= 1200) && (!defined(LONG_PTR)))
+#define LONG_PTR LONG
+#endif
+#else /* !__GNUC__ && !_MSC_VER */
+typedef signed char int8_t;
+typedef unsigned char uint8_t;
+typedef signed short int16_t;
+typedef unsigned short uint16_t;
+typedef signed int int32_t;
+typedef unsigned int uint32_t;
+typedef signed long long int64_t;
+typedef unsigned long long uint64_t;
+#ifndef _SIZE_T_DEFINED_
+#define _SIZE_T_DEFINED_
+typedef unsigned int size_t;
+#endif
+typedef unsigned int uintptr_t;
+#endif /* __GNUC__ || _MSC_VER */
 #endif /* !_STDINT_H_ && !HAVE_STDINT_H */
 
 #ifdef _WIN64
-    #define SIZEOF_VOIDP 8
+#define SIZEOF_VOIDP 8
 #else
-    #define SIZEOF_VOIDP 4
+#define SIZEOF_VOIDP 4
 #endif
 
 /* Useful headers */
 #define HAVE_DXGI_H 1
 #if WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP
-    #define HAVE_XINPUT_H 1
+#define HAVE_XINPUT_H 1
 #endif
 #define HAVE_LIBC 1
 #define HAVE_STDIO_H 1
@@ -167,11 +167,11 @@
 
 /* Enable various input drivers */
 #if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-    #define SDL_JOYSTICK_DISABLED 1
-    #define SDL_HAPTIC_DISABLED 1
+#define SDL_JOYSTICK_DISABLED 1
+#define SDL_HAPTIC_DISABLED 1
 #else
-    #define SDL_JOYSTICK_XINPUT 1
-    #define SDL_HAPTIC_XINPUT   1
+#define SDL_JOYSTICK_XINPUT 1
+#define SDL_HAPTIC_XINPUT   1
 #endif
 
 /* Enable various shared object loading systems */
@@ -179,10 +179,10 @@
 
 /* Enable various threading systems */
 #if (NTDDI_VERSION >= NTDDI_WINBLUE)
-    #define SDL_THREAD_WINDOWS  1
+#define SDL_THREAD_WINDOWS  1
 #else
-    /* WinRT on Windows 8.0 and Windows Phone 8.0 don't support CreateThread() */
-    #define SDL_THREAD_STDCPP   1
+/* WinRT on Windows 8.0 and Windows Phone 8.0 don't support CreateThread() */
+#define SDL_THREAD_STDCPP   1
 #endif
 
 /* Enable various timer systems */
@@ -200,7 +200,7 @@
 #define SDL_VIDEO_RENDER_D3D11  1
 
 #if SDL_VIDEO_OPENGL_ES2
-    #define SDL_VIDEO_RENDER_OGL_ES2 1
+#define SDL_VIDEO_RENDER_OGL_ES2 1
 #endif
 
 /* Enable system power support */
@@ -208,7 +208,7 @@
 
 /* Enable assembly routines (Win64 doesn't have inline asm) */
 #ifndef _WIN64
-    #define SDL_ASSEMBLY_ROUTINES   1
+#define SDL_ASSEMBLY_ROUTINES   1
 #endif
 
 #endif /* _SDL_config_winrt_h */

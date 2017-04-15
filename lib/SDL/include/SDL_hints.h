@@ -750,7 +750,8 @@ extern DECLSPEC const char* SDLCALL SDL_GetHint (const char* name);
  *
  *  \return The boolean value of a hint variable.
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_GetHintBoolean (const char* name, SDL_bool default_value);
+extern DECLSPEC SDL_bool SDLCALL SDL_GetHintBoolean (const char* name,
+        SDL_bool default_value);
 
 /**
  *  \brief Add a function to watch a particular hint
@@ -759,7 +760,8 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetHintBoolean (const char* name, SDL_bool 
  *  \param callback The function to call when the hint value changes
  *  \param userdata A pointer to pass to the callback function
  */
-typedef void (*SDL_HintCallback) (void* userdata, const char* name, const char* oldValue,
+typedef void (*SDL_HintCallback) (void* userdata, const char* name,
+                                  const char* oldValue,
                                   const char* newValue);
 extern DECLSPEC void SDLCALL SDL_AddHintCallback (const char* name,
                                                   SDL_HintCallback callback,

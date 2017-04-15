@@ -234,7 +234,8 @@ extern DECLSPEC SDL_Cursor* SDLCALL SDL_CreateColorCursor (SDL_Surface* surface,
  *
  *  \sa SDL_FreeCursor()
  */
-extern DECLSPEC SDL_Cursor* SDLCALL SDL_CreateSystemCursor (SDL_SystemCursor id);
+extern DECLSPEC SDL_Cursor* SDLCALL SDL_CreateSystemCursor (
+    SDL_SystemCursor id);
 
 /**
  *  \brief Set the active cursor.

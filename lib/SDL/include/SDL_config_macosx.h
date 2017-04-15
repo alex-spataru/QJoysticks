@@ -30,9 +30,9 @@
 /* This is a set of defines to configure the SDL features */
 
 #ifdef __LP64__
-    #define SIZEOF_VOIDP 8
+#define SIZEOF_VOIDP 8
 #else
-    #define SIZEOF_VOIDP 4
+#define SIZEOF_VOIDP 4
 #endif
 
 /* Useful headers */
@@ -148,29 +148,29 @@
 #define SDL_VIDEO_DRIVER_X11_HAS_XKBKEYCODETOKEYSYM 1
 
 #ifdef MAC_OS_X_VERSION_10_8
-    /*
-    * No matter the versions targeted, this is the 10.8 or later SDK, so you have
-    *  to use the external Xquartz, which is a more modern Xlib. Previous SDKs
-    *  used an older Xlib.
-    */
-    #define SDL_VIDEO_DRIVER_X11_XINPUT2 1
-    #define SDL_VIDEO_DRIVER_X11_SUPPORTS_GENERIC_EVENTS 1
-    #define SDL_VIDEO_DRIVER_X11_CONST_PARAM_XEXTADDDISPLAY 1
+/*
+* No matter the versions targeted, this is the 10.8 or later SDK, so you have
+*  to use the external Xquartz, which is a more modern Xlib. Previous SDKs
+*  used an older Xlib.
+*/
+#define SDL_VIDEO_DRIVER_X11_XINPUT2 1
+#define SDL_VIDEO_DRIVER_X11_SUPPORTS_GENERIC_EVENTS 1
+#define SDL_VIDEO_DRIVER_X11_CONST_PARAM_XEXTADDDISPLAY 1
 #endif
 
 #ifndef SDL_VIDEO_RENDER_OGL
-    #define SDL_VIDEO_RENDER_OGL    1
+#define SDL_VIDEO_RENDER_OGL    1
 #endif
 
 /* Enable OpenGL support */
 #ifndef SDL_VIDEO_OPENGL
-    #define SDL_VIDEO_OPENGL    1
+#define SDL_VIDEO_OPENGL    1
 #endif
 #ifndef SDL_VIDEO_OPENGL_CGL
-    #define SDL_VIDEO_OPENGL_CGL    1
+#define SDL_VIDEO_OPENGL_CGL    1
 #endif
 #ifndef SDL_VIDEO_OPENGL_GLX
-    #define SDL_VIDEO_OPENGL_GLX    1
+#define SDL_VIDEO_OPENGL_GLX    1
 #endif
 
 /* Enable system power support */
@@ -182,7 +182,7 @@
 /* Enable assembly routines */
 #define SDL_ASSEMBLY_ROUTINES   1
 #ifdef __ppc__
-    #define SDL_ALTIVEC_BLITTERS    1
+#define SDL_ALTIVEC_BLITTERS    1
 #endif
 
 #endif /* _SDL_config_macosx_h */

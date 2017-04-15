@@ -197,7 +197,8 @@ typedef struct {
  *
  * \note If you don't know what this function is for, you shouldn't use it!
 */
-extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCAS (SDL_atomic_t* a, int oldval, int newval);
+extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCAS (SDL_atomic_t* a, int oldval,
+                                                int newval);
 
 /**
  * \brief Set an atomic variable to a value.
@@ -244,7 +245,8 @@ extern DECLSPEC int SDLCALL SDL_AtomicAdd (SDL_atomic_t* a, int v);
  *
  * \note If you don't know what this function is for, you shouldn't use it!
 */
-extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCASPtr (void** a, void* oldval, void* newval);
+extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCASPtr (void** a, void* oldval,
+        void* newval);
 
 /**
  * \brief Set a pointer to a value atomically.

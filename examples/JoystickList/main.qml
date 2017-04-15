@@ -116,7 +116,7 @@ ApplicationWindow {
                             target: QJoysticks
                             onAxisChanged: {
                                 if (currentJoystick === js && index === axis)
-                                    progressbar.value = value * 100
+                                    progressbar.value = QJoysticks.getAxis (js, index) * 100
                             }
                         }
                     }
@@ -157,7 +157,7 @@ ApplicationWindow {
                             target: QJoysticks
                             onButtonChanged: {
                                 if (currentJoystick === js && button === index)
-                                    checked = pressed
+                                    checked = QJoysticks.getButton (js, index)
                             }
                         }
                     }
@@ -196,7 +196,7 @@ ApplicationWindow {
                             target: QJoysticks
                             onPovChanged: {
                                 if (currentJoystick === js && pov === index)
-                                    value = angle
+                                    value = QJoysticks.getPOV (js, index)
                             }
                         }
                     }

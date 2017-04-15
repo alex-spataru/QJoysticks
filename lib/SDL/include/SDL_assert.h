@@ -218,7 +218,8 @@ extern DECLSPEC void SDLCALL SDL_SetAssertionHandler (
  *
  *  \return The default SDL_AssertionHandler that is called when an assert triggers.
  */
-extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetDefaultAssertionHandler (void);
+extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetDefaultAssertionHandler (
+    void);
 
 /**
  *  \brief Get the current assertion handler.
@@ -235,7 +236,8 @@ extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetDefaultAssertionHandler (voi
  *                    a NULL pointer to this function to ignore it.
  *  \return The SDL_AssertionHandler that is called when an assert triggers.
  */
-extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetAssertionHandler (void** puserdata);
+extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetAssertionHandler (
+    void** puserdata);
 
 /**
  *  \brief Get a list of all assertion failures.

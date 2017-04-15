@@ -28,25 +28,25 @@
 
 #ifndef _MSC_VER
 
-    #ifdef __IPHONEOS__
-        #include <OpenGLES/ES2/gl.h>
-        #include <OpenGLES/ES2/glext.h>
-    #else
-        #include <GLES2/gl2platform.h>
-        #include <GLES2/gl2.h>
-        #include <GLES2/gl2ext.h>
-    #endif
+#ifdef __IPHONEOS__
+#include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
+#else
+#include <GLES2/gl2platform.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+#endif
 
 #else /* _MSC_VER */
 
-    /* OpenGL ES2 headers for Visual Studio */
-    #include "SDL_opengles2_khrplatform.h"
-    #include "SDL_opengles2_gl2platform.h"
-    #include "SDL_opengles2_gl2.h"
-    #include "SDL_opengles2_gl2ext.h"
+/* OpenGL ES2 headers for Visual Studio */
+#include "SDL_opengles2_khrplatform.h"
+#include "SDL_opengles2_gl2platform.h"
+#include "SDL_opengles2_gl2.h"
+#include "SDL_opengles2_gl2ext.h"
 
 #endif /* _MSC_VER */
 
 #ifndef APIENTRY
-    #define APIENTRY GL_APIENTRY
+#define APIENTRY GL_APIENTRY
 #endif

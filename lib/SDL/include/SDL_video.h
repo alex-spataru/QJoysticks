@@ -297,7 +297,8 @@ extern DECLSPEC const char* SDLCALL SDL_GetDisplayName (int displayIndex);
  *
  *  \sa SDL_GetNumVideoDisplays()
  */
-extern DECLSPEC int SDLCALL SDL_GetDisplayBounds (int displayIndex, SDL_Rect* rect);
+extern DECLSPEC int SDLCALL SDL_GetDisplayBounds (int displayIndex,
+                                                  SDL_Rect* rect);
 
 /**
  *  \brief Get the dots/pixels-per-inch for a display
@@ -309,7 +310,8 @@ extern DECLSPEC int SDLCALL SDL_GetDisplayBounds (int displayIndex, SDL_Rect* re
  *
  *  \sa SDL_GetNumVideoDisplays()
  */
-extern DECLSPEC int SDLCALL SDL_GetDisplayDPI (int displayIndex, float* ddpi, float* hdpi,
+extern DECLSPEC int SDLCALL SDL_GetDisplayDPI (int displayIndex, float* ddpi,
+                                               float* hdpi,
                                                float* vdpi);
 
 /**
@@ -329,7 +331,8 @@ extern DECLSPEC int SDLCALL SDL_GetDisplayDPI (int displayIndex, float* ddpi, fl
  *  \sa SDL_GetDisplayBounds()
  *  \sa SDL_GetNumVideoDisplays()
  */
-extern DECLSPEC int SDLCALL SDL_GetDisplayUsableBounds (int displayIndex, SDL_Rect* rect);
+extern DECLSPEC int SDLCALL SDL_GetDisplayUsableBounds (int displayIndex,
+        SDL_Rect* rect);
 
 /**
  *  \brief Returns the number of available display modes.
@@ -355,12 +358,14 @@ extern DECLSPEC int SDLCALL SDL_GetDisplayMode (int displayIndex, int modeIndex,
 /**
  *  \brief Fill in information about the desktop display mode.
  */
-extern DECLSPEC int SDLCALL SDL_GetDesktopDisplayMode (int displayIndex, SDL_DisplayMode* mode);
+extern DECLSPEC int SDLCALL SDL_GetDesktopDisplayMode (int displayIndex,
+        SDL_DisplayMode* mode);
 
 /**
  *  \brief Fill in information about the current display mode.
  */
-extern DECLSPEC int SDLCALL SDL_GetCurrentDisplayMode (int displayIndex, SDL_DisplayMode* mode);
+extern DECLSPEC int SDLCALL SDL_GetCurrentDisplayMode (int displayIndex,
+        SDL_DisplayMode* mode);
 
 
 /**
@@ -384,8 +389,9 @@ extern DECLSPEC int SDLCALL SDL_GetCurrentDisplayMode (int displayIndex, SDL_Dis
  *  \sa SDL_GetNumDisplayModes()
  *  \sa SDL_GetDisplayMode()
  */
-extern DECLSPEC SDL_DisplayMode* SDLCALL SDL_GetClosestDisplayMode (int displayIndex,
-        const SDL_DisplayMode* mode, SDL_DisplayMode* closest);
+extern DECLSPEC SDL_DisplayMode* SDLCALL SDL_GetClosestDisplayMode (
+    int displayIndex,
+    const SDL_DisplayMode* mode, SDL_DisplayMode* closest);
 
 /**
  *  \brief Get the display index associated with a window.
@@ -848,7 +854,8 @@ extern DECLSPEC SDL_Window* SDLCALL SDL_GetGrabbedWindow (void);
  *  \sa SDL_GetWindowBrightness()
  *  \sa SDL_SetWindowGammaRamp()
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowBrightness (SDL_Window* window, float brightness);
+extern DECLSPEC int SDLCALL SDL_SetWindowBrightness (SDL_Window* window,
+        float brightness);
 
 /**
  *  \brief Get the brightness (gamma correction) for a window.
@@ -870,7 +877,8 @@ extern DECLSPEC float SDLCALL SDL_GetWindowBrightness (SDL_Window* window);
  *
  *  \sa SDL_GetWindowOpacity()
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowOpacity (SDL_Window* window, float opacity);
+extern DECLSPEC int SDLCALL SDL_SetWindowOpacity (SDL_Window* window,
+                                                  float opacity);
 
 /**
  *  \brief Get the opacity of a window.
@@ -885,7 +893,8 @@ extern DECLSPEC int SDLCALL SDL_SetWindowOpacity (SDL_Window* window, float opac
  *
  *  \sa SDL_SetWindowOpacity()
  */
-extern DECLSPEC int SDLCALL SDL_GetWindowOpacity (SDL_Window* window, float* out_opacity);
+extern DECLSPEC int SDLCALL SDL_GetWindowOpacity (SDL_Window* window,
+                                                  float* out_opacity);
 
 /**
  *  \brief Sets the window as a modal for another window (TODO: reconsider this function and/or its name)

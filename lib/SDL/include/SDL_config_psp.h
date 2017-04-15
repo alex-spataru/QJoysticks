@@ -27,7 +27,7 @@
 
 
 #ifdef __GNUC__
-    #define HAVE_GCC_SYNC_LOCK_TEST_AND_SET 1
+#define HAVE_GCC_SYNC_LOCK_TEST_AND_SET 1
 #endif
 
 #define HAVE_GCC_ATOMICS    1

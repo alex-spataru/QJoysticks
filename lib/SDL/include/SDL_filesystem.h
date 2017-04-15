@@ -123,7 +123,8 @@ extern DECLSPEC char* SDLCALL SDL_GetBasePath (void);
  *
  * \sa SDL_GetBasePath
  */
-extern DECLSPEC char* SDLCALL SDL_GetPrefPath (const char* org, const char* app);
+extern DECLSPEC char* SDLCALL SDL_GetPrefPath (const char* org,
+                                               const char* app);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

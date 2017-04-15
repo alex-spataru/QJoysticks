@@ -141,31 +141,36 @@ extern DECLSPEC void SDLCALL SDL_Log (SDL_PRINTF_FORMAT_STRING const char* fmt,
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_VERBOSE
  */
-extern DECLSPEC void SDLCALL SDL_LogVerbose (int category, SDL_PRINTF_FORMAT_STRING const char* fmt,
+extern DECLSPEC void SDLCALL SDL_LogVerbose (int category,
+                                             SDL_PRINTF_FORMAT_STRING const char* fmt,
                                              ...) SDL_PRINTF_VARARG_FUNC (2);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_DEBUG
  */
-extern DECLSPEC void SDLCALL SDL_LogDebug (int category, SDL_PRINTF_FORMAT_STRING const char* fmt,
+extern DECLSPEC void SDLCALL SDL_LogDebug (int category,
+                                           SDL_PRINTF_FORMAT_STRING const char* fmt,
                                            ...) SDL_PRINTF_VARARG_FUNC (2);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_INFO
  */
-extern DECLSPEC void SDLCALL SDL_LogInfo (int category, SDL_PRINTF_FORMAT_STRING const char* fmt,
+extern DECLSPEC void SDLCALL SDL_LogInfo (int category,
+                                          SDL_PRINTF_FORMAT_STRING const char* fmt,
                                           ...) SDL_PRINTF_VARARG_FUNC (2);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_WARN
  */
-extern DECLSPEC void SDLCALL SDL_LogWarn (int category, SDL_PRINTF_FORMAT_STRING const char* fmt,
+extern DECLSPEC void SDLCALL SDL_LogWarn (int category,
+                                          SDL_PRINTF_FORMAT_STRING const char* fmt,
                                           ...) SDL_PRINTF_VARARG_FUNC (2);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_ERROR
  */
-extern DECLSPEC void SDLCALL SDL_LogError (int category, SDL_PRINTF_FORMAT_STRING const char* fmt,
+extern DECLSPEC void SDLCALL SDL_LogError (int category,
+                                           SDL_PRINTF_FORMAT_STRING const char* fmt,
                                            ...) SDL_PRINTF_VARARG_FUNC (2);
 
 /**
@@ -191,20 +196,23 @@ extern DECLSPEC void SDLCALL SDL_LogMessageV (int category,
 /**
  *  \brief The prototype for the log output function
  */
-typedef void (*SDL_LogOutputFunction) (void* userdata, int category, SDL_LogPriority priority,
+typedef void (*SDL_LogOutputFunction) (void* userdata, int category,
+                                       SDL_LogPriority priority,
                                        const char* message);
 
 /**
  *  \brief Get the current log output function.
  */
-extern DECLSPEC void SDLCALL SDL_LogGetOutputFunction (SDL_LogOutputFunction* callback,
+extern DECLSPEC void SDLCALL SDL_LogGetOutputFunction (SDL_LogOutputFunction*
+        callback,
         void** userdata);
 
 /**
  *  \brief This function allows you to replace the default log output
  *         function with one of your own.
  */
-extern DECLSPEC void SDLCALL SDL_LogSetOutputFunction (SDL_LogOutputFunction callback,
+extern DECLSPEC void SDLCALL SDL_LogSetOutputFunction (SDL_LogOutputFunction
+        callback,
         void* userdata);
 
 
