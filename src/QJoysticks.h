@@ -80,7 +80,7 @@ public:
     int nonBlacklistedCount();
     QStringList deviceNames() const;
 
-    Q_INVOKABLE int getPOV(const int index, const int pov);
+    Q_INVOKABLE int getPOV (const int index, const int pov);
     Q_INVOKABLE double getAxis (const int index, const int axis);
     Q_INVOKABLE bool getButton (const int index, const int button);
 
