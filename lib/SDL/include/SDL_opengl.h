@@ -69,7 +69,7 @@
 #define __gl_h_
 
 #if defined(USE_MGL_NAMESPACE)
-#include "gl_mangle.h"
+    #include "gl_mangle.h"
 #endif
 
 
@@ -78,28 +78,28 @@
  */
 
 #if defined(_WIN32) && !defined(__WIN32__) && !defined(__CYGWIN__)
-#define __WIN32__
+    #define __WIN32__
 #endif
 
 #if defined(__WIN32__) && !defined(__CYGWIN__)
-#if (defined(_MSC_VER) || defined(__MINGW32__)) && defined(BUILD_GL32) /* tag specify we're building mesa as a DLL */
-#define GLAPI __declspec(dllexport)
-#elif (defined(_MSC_VER) || defined(__MINGW32__)) && defined(_DLL) /* tag specifying we're building for DLL runtime support */
-#define GLAPI __declspec(dllimport)
-#else /* for use with static link lib build of Win32 edition only */
-#define GLAPI extern
-#endif /* _STATIC_MESA support */
-#if defined(__MINGW32__) && defined(GL_NO_STDCALL) || defined(UNDER_CE)  /* The generated DLLs by MingW with STDCALL are not compatible with the ones done by Microsoft's compilers */
-#define GLAPIENTRY
-#else
-#define GLAPIENTRY __stdcall
-#endif
+    #if (defined(_MSC_VER) || defined(__MINGW32__)) && defined(BUILD_GL32) /* tag specify we're building mesa as a DLL */
+        #define GLAPI __declspec(dllexport)
+    #elif (defined(_MSC_VER) || defined(__MINGW32__)) && defined(_DLL) /* tag specifying we're building for DLL runtime support */
+        #define GLAPI __declspec(dllimport)
+    #else /* for use with static link lib build of Win32 edition only */
+        #define GLAPI extern
+    #endif /* _STATIC_MESA support */
+    #if defined(__MINGW32__) && defined(GL_NO_STDCALL) || defined(UNDER_CE)  /* The generated DLLs by MingW with STDCALL are not compatible with the ones done by Microsoft's compilers */
+        #define GLAPIENTRY
+    #else
+        #define GLAPIENTRY __stdcall
+    #endif
 #elif defined(__CYGWIN__) && defined(USE_OPENGL32) /* use native windows opengl32 */
-#define GLAPI extern
-#define GLAPIENTRY __stdcall
+    #define GLAPI extern
+    #define GLAPIENTRY __stdcall
 #elif (defined(__GNUC__) && __GNUC__ >= 4) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590))
-#define GLAPI __attribute__((visibility("default")))
-#define GLAPIENTRY
+    #define GLAPI __attribute__((visibility("default")))
+    #define GLAPIENTRY
 #endif /* WIN32 && !CYGWIN */
 
 /*
@@ -111,38 +111,38 @@
  * glut.h or gl.h.
  */
 #if defined(_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__)
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
-#ifndef NOMINMAX   /* don't define min() and max(). */
-#define NOMINMAX
-#endif
-#include <windows.h>
+    #ifndef WIN32_LEAN_AND_MEAN
+        #define WIN32_LEAN_AND_MEAN 1
+    #endif
+    #ifndef NOMINMAX   /* don't define min() and max(). */
+        #define NOMINMAX
+    #endif
+    #include <windows.h>
 #endif
 
 #ifndef GLAPI
-#define GLAPI extern
+    #define GLAPI extern
 #endif
 
 #ifndef GLAPIENTRY
-#define GLAPIENTRY
+    #define GLAPIENTRY
 #endif
 
 #ifndef APIENTRY
-#define APIENTRY GLAPIENTRY
+    #define APIENTRY GLAPIENTRY
 #endif
 
 /* "P" suffix to be used for a pointer to a function */
 #ifndef APIENTRYP
-#define APIENTRYP APIENTRY *
+    #define APIENTRYP APIENTRY *
 #endif
 
 #ifndef GLAPIENTRYP
-#define GLAPIENTRYP GLAPIENTRY *
+    #define GLAPIENTRYP GLAPIENTRY *
 #endif
 
 #if defined(PRAGMA_EXPORT_SUPPORTED)
-#pragma export on
+    #pragma export on
 #endif
 
 /*

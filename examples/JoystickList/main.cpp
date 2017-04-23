@@ -29,9 +29,9 @@
 #include <QJoysticks.h>
 
 #ifdef Q_OS_WIN
-#ifdef main
-#undef main
-#endif
+    #ifdef main
+        #undef main
+    #endif
 #endif
 
 void configureDarkStyle()

@@ -38,13 +38,13 @@ static QString GENERIC_MAPPINGS;
  * Load a different generic/backup mapping for each operating system.
  */
 #ifdef SDL_SUPPORTED
-#if defined Q_OS_WIN
-#define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Windows.txt"
-#elif defined Q_OS_MAC
-#define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/OSX.txt"
-#elif defined Q_OS_LINUX && !defined Q_OS_ANDROID
-#define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Linux.txt"
-#endif
+    #if defined Q_OS_WIN
+        #define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Windows.txt"
+    #elif defined Q_OS_MAC
+        #define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/OSX.txt"
+    #elif defined Q_OS_LINUX && !defined Q_OS_ANDROID
+        #define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Linux.txt"
+    #endif
 #endif
 
 SDL_Joysticks::SDL_Joysticks (QObject* parent) : QObject (parent)
