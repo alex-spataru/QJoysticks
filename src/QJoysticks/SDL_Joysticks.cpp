@@ -135,6 +135,7 @@ void SDL_Joysticks::update()
             SDL_GameControllerClose (SDL_GameControllerOpen (event.cdevice.which));
             emit countChanged();
             break;
+        case SDL_JOYAXISMOTION:
         case SDL_CONTROLLERAXISMOTION:
             emit axisEvent (getAxisEvent (&event));
             break;
