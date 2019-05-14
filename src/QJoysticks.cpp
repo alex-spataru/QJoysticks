@@ -422,8 +422,10 @@ void QJoysticks::addInputDevice (QJoystickDevice* device)
 void QJoysticks::onPOVEvent (const QJoystickPOVEvent& e)
 {
     if (!isBlacklisted (e.joystick->id)) {
-        getInputDevice (e.joystick->id)->povs [e.pov] = e.angle;
-        emit povChanged (e.joystick->id, e.pov, e.angle);
+        if (e.pov < getInputDevice (e.joystick->id)->povs.count()) {
+            getInputDevice (e.joystick->id)->povs [e.pov] = e.angle;
+            emit povChanged (e.joystick->id, e.pov, e.angle);
+        }
     }
 }
 
@@ -434,8 +436,10 @@ void QJoysticks::onPOVEvent (const QJoystickPOVEvent& e)
 void QJoysticks::onAxisEvent (const QJoystickAxisEvent& e)
 {
     if (!isBlacklisted (e.joystick->id)) {
-        getInputDevice (e.joystick->id)->axes [e.axis] = e.value;
-        emit axisChanged (e.joystick->id, e.axis, e.value);
+        if (e.axis < getInputDevice (e.joystick->id)->axes.count()) {
+            getInputDevice (e.joystick->id)->axes [e.axis] = e.value;
+            emit axisChanged (e.joystick->id, e.axis, e.value);
+        }
     }
 }
 
@@ -446,7 +450,9 @@ void QJoysticks::onAxisEvent (const QJoystickAxisEvent& e)
 void QJoysticks::onButtonEvent (const QJoystickButtonEvent& e)
 {
     if (!isBlacklisted (e.joystick->id)) {
-        getInputDevice (e.joystick->id)->buttons [e.button] = e.pressed;
-        emit buttonChanged (e.joystick->id, e.button, e.pressed);
+        if (e.button < getInputDevice (e.joystick->id)->buttons.count()) {
+            getInputDevice (e.joystick->id)->buttons [e.button] = e.pressed;
+            emit buttonChanged (e.joystick->id, e.button, e.pressed);
+        }
     }
 }
