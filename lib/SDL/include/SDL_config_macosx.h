@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,9 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef _SDL_config_macosx_h
-#define _SDL_config_macosx_h
+#ifndef SDL_config_macosx_h_
+#define SDL_config_macosx_h_
+#define SDL_config_h_
 
 #include "SDL_platform.h"
 
@@ -148,29 +149,37 @@
 #define SDL_VIDEO_DRIVER_X11_HAS_XKBKEYCODETOKEYSYM 1
 
 #ifdef MAC_OS_X_VERSION_10_8
-    /*
-    * No matter the versions targeted, this is the 10.8 or later SDK, so you have
-    *  to use the external Xquartz, which is a more modern Xlib. Previous SDKs
-    *  used an older Xlib.
-    */
-    #define SDL_VIDEO_DRIVER_X11_XINPUT2 1
-    #define SDL_VIDEO_DRIVER_X11_SUPPORTS_GENERIC_EVENTS 1
-    #define SDL_VIDEO_DRIVER_X11_CONST_PARAM_XEXTADDDISPLAY 1
+/*
+ * No matter the versions targeted, this is the 10.8 or later SDK, so you have
+ *  to use the external Xquartz, which is a more modern Xlib. Previous SDKs
+ *  used an older Xlib.
+ */
+#define SDL_VIDEO_DRIVER_X11_XINPUT2 1
+#define SDL_VIDEO_DRIVER_X11_SUPPORTS_GENERIC_EVENTS 1
+#define SDL_VIDEO_DRIVER_X11_CONST_PARAM_XEXTADDDISPLAY 1
 #endif
 
 #ifndef SDL_VIDEO_RENDER_OGL
-    #define SDL_VIDEO_RENDER_OGL    1
+#define SDL_VIDEO_RENDER_OGL    1
 #endif
 
 /* Enable OpenGL support */
 #ifndef SDL_VIDEO_OPENGL
-    #define SDL_VIDEO_OPENGL    1
+#define SDL_VIDEO_OPENGL    1
 #endif
 #ifndef SDL_VIDEO_OPENGL_CGL
-    #define SDL_VIDEO_OPENGL_CGL    1
+#define SDL_VIDEO_OPENGL_CGL    1
 #endif
 #ifndef SDL_VIDEO_OPENGL_GLX
-    #define SDL_VIDEO_OPENGL_GLX    1
+#define SDL_VIDEO_OPENGL_GLX    1
+#endif
+
+/* Enable Vulkan support */
+/* Metal/MoltenVK/Vulkan only supported on 64-bit architectures with 10.11+ */
+#if TARGET_CPU_X86_64 && (MAC_OS_X_VERSION_MAX_ALLOWED >= 101100)
+#define SDL_VIDEO_VULKAN 1
+#else
+#define  SDL_VIDEO_VULKAN 0
 #endif
 
 /* Enable system power support */
@@ -182,7 +191,7 @@
 /* Enable assembly routines */
 #define SDL_ASSEMBLY_ROUTINES   1
 #ifdef __ppc__
-    #define SDL_ALTIVEC_BLITTERS    1
+#define SDL_ALTIVEC_BLITTERS    1
 #endif
 
-#endif /* _SDL_config_macosx_h */
+#endif /* SDL_config_macosx_h_ */

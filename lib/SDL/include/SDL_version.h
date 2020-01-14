@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,8 +25,8 @@
  *  This header defines the current SDL version.
  */
 
-#ifndef _SDL_version_h
-#define _SDL_version_h
+#ifndef SDL_version_h_
+#define SDL_version_h_
 
 #include "SDL_stdinc.h"
 
@@ -48,7 +48,8 @@ extern "C" {
  *  \sa SDL_VERSION
  *  \sa SDL_GetVersion
  */
-typedef struct SDL_version {
+typedef struct SDL_version
+{
     Uint8 major;        /**< major version */
     Uint8 minor;        /**< minor version */
     Uint8 patch;        /**< update version */
@@ -58,7 +59,7 @@ typedef struct SDL_version {
 */
 #define SDL_MAJOR_VERSION   2
 #define SDL_MINOR_VERSION   0
-#define SDL_PATCHLEVEL      5
+#define SDL_PATCHLEVEL      10
 
 /**
  *  \brief Macro to determine SDL version program was compiled against.
@@ -76,11 +77,11 @@ typedef struct SDL_version {
  *  \sa SDL_GetVersion
  */
 #define SDL_VERSION(x)                          \
-    {                                   \
-        (x)->major = SDL_MAJOR_VERSION;                 \
-        (x)->minor = SDL_MINOR_VERSION;                 \
-        (x)->patch = SDL_PATCHLEVEL;                    \
-    }
+{                                   \
+    (x)->major = SDL_MAJOR_VERSION;                 \
+    (x)->minor = SDL_MINOR_VERSION;                 \
+    (x)->patch = SDL_PATCHLEVEL;                    \
+}
 
 /**
  *  This macro turns the version numbers into a numeric value:
@@ -129,7 +130,7 @@ typedef struct SDL_version {
  *
  *  \sa SDL_VERSION
  */
-extern DECLSPEC void SDLCALL SDL_GetVersion (SDL_version* ver);
+extern DECLSPEC void SDLCALL SDL_GetVersion(SDL_version * ver);
 
 /**
  *  \brief Get the code revision of SDL that is linked against your program.
@@ -138,7 +139,7 @@ extern DECLSPEC void SDLCALL SDL_GetVersion (SDL_version* ver);
  *  exact revision of the SDL library in use, and is only useful in comparing
  *  against other revisions. It is NOT an incrementing number.
  */
-extern DECLSPEC const char* SDLCALL SDL_GetRevision (void);
+extern DECLSPEC const char *SDLCALL SDL_GetRevision(void);
 
 /**
  *  \brief Get the revision number of SDL that is linked against your program.
@@ -147,7 +148,7 @@ extern DECLSPEC const char* SDLCALL SDL_GetRevision (void);
  *  library in use. It is an incrementing number based on commits to
  *  hg.libsdl.org.
  */
-extern DECLSPEC int SDLCALL SDL_GetRevisionNumber (void);
+extern DECLSPEC int SDLCALL SDL_GetRevisionNumber(void);
 
 
 /* Ends C function definitions when using C++ */
@@ -156,6 +157,6 @@ extern DECLSPEC int SDLCALL SDL_GetRevisionNumber (void);
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_version_h */
+#endif /* SDL_version_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

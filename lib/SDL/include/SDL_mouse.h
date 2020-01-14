@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,8 +25,8 @@
  *  Include file for SDL mouse event handling.
  */
 
-#ifndef _SDL_mouse_h
-#define _SDL_mouse_h
+#ifndef SDL_mouse_h_
+#define SDL_mouse_h_
 
 #include "SDL_stdinc.h"
 #include "SDL_error.h"
@@ -38,12 +38,13 @@
 extern "C" {
 #endif
 
-typedef struct SDL_Cursor SDL_Cursor;   /* Implementation dependent */
+typedef struct SDL_Cursor SDL_Cursor;   /**< Implementation dependent */
 
 /**
  * \brief Cursor types for SDL_CreateSystemCursor().
  */
-typedef enum {
+typedef enum
+{
     SDL_SYSTEM_CURSOR_ARROW,     /**< Arrow */
     SDL_SYSTEM_CURSOR_IBEAM,     /**< I-beam */
     SDL_SYSTEM_CURSOR_WAIT,      /**< Wait */
@@ -62,7 +63,8 @@ typedef enum {
 /**
  * \brief Scroll direction types for the Scroll event
  */
-typedef enum {
+typedef enum
+{
     SDL_MOUSEWHEEL_NORMAL,    /**< The scroll direction is normal */
     SDL_MOUSEWHEEL_FLIPPED    /**< The scroll direction is flipped / natural */
 } SDL_MouseWheelDirection;
@@ -72,7 +74,7 @@ typedef enum {
 /**
  *  \brief Get the window which currently has mouse focus.
  */
-extern DECLSPEC SDL_Window* SDLCALL SDL_GetMouseFocus (void);
+extern DECLSPEC SDL_Window * SDLCALL SDL_GetMouseFocus(void);
 
 /**
  *  \brief Retrieve the current state of the mouse.
@@ -82,7 +84,7 @@ extern DECLSPEC SDL_Window* SDLCALL SDL_GetMouseFocus (void);
  *  mouse cursor position relative to the focus window for the currently
  *  selected mouse.  You can pass NULL for either x or y.
  */
-extern DECLSPEC Uint32 SDLCALL SDL_GetMouseState (int* x, int* y);
+extern DECLSPEC Uint32 SDLCALL SDL_GetMouseState(int *x, int *y);
 
 /**
  *  \brief Get the current state of the mouse, in relation to the desktop
@@ -107,7 +109,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetMouseState (int* x, int* y);
  *
  *  \sa SDL_GetMouseState
  */
-extern DECLSPEC Uint32 SDLCALL SDL_GetGlobalMouseState (int* x, int* y);
+extern DECLSPEC Uint32 SDLCALL SDL_GetGlobalMouseState(int *x, int *y);
 
 /**
  *  \brief Retrieve the relative state of the mouse.
@@ -116,7 +118,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetGlobalMouseState (int* x, int* y);
  *  be tested using the SDL_BUTTON(X) macros, and x and y are set to the
  *  mouse deltas since the last call to SDL_GetRelativeMouseState().
  */
-extern DECLSPEC Uint32 SDLCALL SDL_GetRelativeMouseState (int* x, int* y);
+extern DECLSPEC Uint32 SDLCALL SDL_GetRelativeMouseState(int *x, int *y);
 
 /**
  *  \brief Moves the mouse to the given position within the window.
@@ -127,8 +129,8 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetRelativeMouseState (int* x, int* y);
  *
  *  \note This function generates a mouse motion event
  */
-extern DECLSPEC void SDLCALL SDL_WarpMouseInWindow (SDL_Window* window,
-        int x, int y);
+extern DECLSPEC void SDLCALL SDL_WarpMouseInWindow(SDL_Window * window,
+                                                   int x, int y);
 
 /**
  *  \brief Moves the mouse to the given position in global screen space.
@@ -139,7 +141,7 @@ extern DECLSPEC void SDLCALL SDL_WarpMouseInWindow (SDL_Window* window,
  *
  *  \note This function generates a mouse motion event
  */
-extern DECLSPEC int SDLCALL SDL_WarpMouseGlobal (int x, int y);
+extern DECLSPEC int SDLCALL SDL_WarpMouseGlobal(int x, int y);
 
 /**
  *  \brief Set relative mouse mode.
@@ -157,7 +159,7 @@ extern DECLSPEC int SDLCALL SDL_WarpMouseGlobal (int x, int y);
  *
  *  \sa SDL_GetRelativeMouseMode()
  */
-extern DECLSPEC int SDLCALL SDL_SetRelativeMouseMode (SDL_bool enabled);
+extern DECLSPEC int SDLCALL SDL_SetRelativeMouseMode(SDL_bool enabled);
 
 /**
  *  \brief Capture the mouse, to track input outside an SDL window.
@@ -188,14 +190,14 @@ extern DECLSPEC int SDLCALL SDL_SetRelativeMouseMode (SDL_bool enabled);
  *
  *  \return 0 on success, or -1 if not supported.
  */
-extern DECLSPEC int SDLCALL SDL_CaptureMouse (SDL_bool enabled);
+extern DECLSPEC int SDLCALL SDL_CaptureMouse(SDL_bool enabled);
 
 /**
  *  \brief Query whether relative mouse mode is enabled.
  *
  *  \sa SDL_SetRelativeMouseMode()
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode (void);
+extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode(void);
 
 /**
  *  \brief Create a cursor, using the specified bitmap data and
@@ -215,42 +217,41 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode (void);
  *
  *  \sa SDL_FreeCursor()
  */
-extern DECLSPEC SDL_Cursor* SDLCALL SDL_CreateCursor (const Uint8* data,
-        const Uint8* mask,
-        int w, int h, int hot_x,
-        int hot_y);
+extern DECLSPEC SDL_Cursor *SDLCALL SDL_CreateCursor(const Uint8 * data,
+                                                     const Uint8 * mask,
+                                                     int w, int h, int hot_x,
+                                                     int hot_y);
 
 /**
  *  \brief Create a color cursor.
  *
  *  \sa SDL_FreeCursor()
  */
-extern DECLSPEC SDL_Cursor* SDLCALL SDL_CreateColorCursor (SDL_Surface* surface,
-        int hot_x,
-        int hot_y);
+extern DECLSPEC SDL_Cursor *SDLCALL SDL_CreateColorCursor(SDL_Surface *surface,
+                                                          int hot_x,
+                                                          int hot_y);
 
 /**
  *  \brief Create a system cursor.
  *
  *  \sa SDL_FreeCursor()
  */
-extern DECLSPEC SDL_Cursor* SDLCALL SDL_CreateSystemCursor (
-    SDL_SystemCursor id);
+extern DECLSPEC SDL_Cursor *SDLCALL SDL_CreateSystemCursor(SDL_SystemCursor id);
 
 /**
  *  \brief Set the active cursor.
  */
-extern DECLSPEC void SDLCALL SDL_SetCursor (SDL_Cursor* cursor);
+extern DECLSPEC void SDLCALL SDL_SetCursor(SDL_Cursor * cursor);
 
 /**
  *  \brief Return the active cursor.
  */
-extern DECLSPEC SDL_Cursor* SDLCALL SDL_GetCursor (void);
+extern DECLSPEC SDL_Cursor *SDLCALL SDL_GetCursor(void);
 
 /**
  *  \brief Return the default cursor.
  */
-extern DECLSPEC SDL_Cursor* SDLCALL SDL_GetDefaultCursor (void);
+extern DECLSPEC SDL_Cursor *SDLCALL SDL_GetDefaultCursor(void);
 
 /**
  *  \brief Frees a cursor created with SDL_CreateCursor() or similar functions.
@@ -259,7 +260,7 @@ extern DECLSPEC SDL_Cursor* SDLCALL SDL_GetDefaultCursor (void);
  *  \sa SDL_CreateColorCursor()
  *  \sa SDL_CreateSystemCursor()
  */
-extern DECLSPEC void SDLCALL SDL_FreeCursor (SDL_Cursor* cursor);
+extern DECLSPEC void SDLCALL SDL_FreeCursor(SDL_Cursor * cursor);
 
 /**
  *  \brief Toggle whether or not the cursor is shown.
@@ -269,7 +270,7 @@ extern DECLSPEC void SDLCALL SDL_FreeCursor (SDL_Cursor* cursor);
  *
  *  \return 1 if the cursor is shown, or 0 if the cursor is hidden.
  */
-extern DECLSPEC int SDLCALL SDL_ShowCursor (int toggle);
+extern DECLSPEC int SDLCALL SDL_ShowCursor(int toggle);
 
 /**
  *  Used as a mask when testing buttons in buttonstate.
@@ -296,6 +297,6 @@ extern DECLSPEC int SDLCALL SDL_ShowCursor (int toggle);
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_mouse_h */
+#endif /* SDL_mouse_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

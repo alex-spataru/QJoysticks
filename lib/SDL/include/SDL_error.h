@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,8 +25,8 @@
  *  Simple error message routines for SDL.
  */
 
-#ifndef _SDL_error_h
-#define _SDL_error_h
+#ifndef SDL_error_h_
+#define SDL_error_h_
 
 #include "SDL_stdinc.h"
 
@@ -38,11 +38,9 @@ extern "C" {
 
 /* Public functions */
 /* SDL_SetError() unconditionally returns -1. */
-extern DECLSPEC int SDLCALL SDL_SetError (SDL_PRINTF_FORMAT_STRING const char*
-                                          fmt,
-                                          ...) SDL_PRINTF_VARARG_FUNC (1);
-extern DECLSPEC const char* SDLCALL SDL_GetError (void);
-extern DECLSPEC void SDLCALL SDL_ClearError (void);
+extern DECLSPEC int SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
+extern DECLSPEC const char *SDLCALL SDL_GetError(void);
+extern DECLSPEC void SDLCALL SDL_ClearError(void);
 
 /**
  *  \name Internal error functions
@@ -54,7 +52,8 @@ extern DECLSPEC void SDLCALL SDL_ClearError (void);
 #define SDL_OutOfMemory()   SDL_Error(SDL_ENOMEM)
 #define SDL_Unsupported()   SDL_Error(SDL_UNSUPPORTED)
 #define SDL_InvalidParamError(param)    SDL_SetError("Parameter '%s' is invalid", (param))
-typedef enum {
+typedef enum
+{
     SDL_ENOMEM,
     SDL_EFREAD,
     SDL_EFWRITE,
@@ -63,7 +62,7 @@ typedef enum {
     SDL_LASTERROR
 } SDL_errorcode;
 /* SDL_Error() unconditionally returns -1. */
-extern DECLSPEC int SDLCALL SDL_Error (SDL_errorcode code);
+extern DECLSPEC int SDLCALL SDL_Error(SDL_errorcode code);
 /* @} *//* Internal error functions */
 
 /* Ends C function definitions when using C++ */
@@ -72,6 +71,6 @@ extern DECLSPEC int SDLCALL SDL_Error (SDL_errorcode code);
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_error_h */
+#endif /* SDL_error_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

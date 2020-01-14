@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -29,17 +29,17 @@
 
 /* Ported from original test\common.h file. */
 
-#ifndef _SDL_test_common_h
-#define _SDL_test_common_h
+#ifndef SDL_test_common_h_
+#define SDL_test_common_h_
 
 #include "SDL.h"
 
 #if defined(__PSP__)
-    #define DEFAULT_WINDOW_WIDTH  480
-    #define DEFAULT_WINDOW_HEIGHT 272
+#define DEFAULT_WINDOW_WIDTH  480
+#define DEFAULT_WINDOW_HEIGHT 272
 #else
-    #define DEFAULT_WINDOW_WIDTH  640
-    #define DEFAULT_WINDOW_HEIGHT 480
+#define DEFAULT_WINDOW_WIDTH  640
+#define DEFAULT_WINDOW_HEIGHT 480
 #endif
 
 #define VERBOSE_VIDEO   0x00000001
@@ -48,17 +48,18 @@
 #define VERBOSE_EVENT   0x00000008
 #define VERBOSE_AUDIO   0x00000010
 
-typedef struct {
+typedef struct
+{
     /* SDL init flags */
-    char** argv;
+    char **argv;
     Uint32 flags;
     Uint32 verbose;
 
     /* Video info */
-    const char* videodriver;
+    const char *videodriver;
     int display;
-    const char* window_title;
-    const char* window_icon;
+    const char *window_title;
+    const char *window_icon;
     Uint32 window_flags;
     int window_x;
     int window_y;
@@ -74,17 +75,17 @@ typedef struct {
     int depth;
     int refresh_rate;
     int num_windows;
-    SDL_Window** windows;
+    SDL_Window **windows;
 
     /* Renderer info */
-    const char* renderdriver;
+    const char *renderdriver;
     Uint32 render_flags;
     SDL_bool skip_renderer;
-    SDL_Renderer** renderers;
-    SDL_Texture** targets;
+    SDL_Renderer **renderers;
+    SDL_Texture **targets;
 
     /* Audio info */
-    const char* audiodriver;
+    const char *audiodriver;
     SDL_AudioSpec audiospec;
 
     /* GL settings */
@@ -127,7 +128,7 @@ extern "C" {
  *
  * \returns Returns a newly allocated common state object.
  */
-SDLTest_CommonState* SDLTest_CommonCreateState (char** argv, Uint32 flags);
+SDLTest_CommonState *SDLTest_CommonCreateState(char **argv, Uint32 flags);
 
 /**
  * \brief Process one common argument.
@@ -137,16 +138,22 @@ SDLTest_CommonState* SDLTest_CommonCreateState (char** argv, Uint32 flags);
  *
  * \returns The number of arguments processed (i.e. 1 for --fullscreen, 2 for --video [videodriver], or -1 on error.
  */
-int SDLTest_CommonArg (SDLTest_CommonState* state, int index);
+int SDLTest_CommonArg(SDLTest_CommonState * state, int index);
+
 
 /**
- * \brief Returns common usage information
+ * \brief Logs command line usage info.
  *
- * \param state The common state describing the test window to create.
+ * This logs the appropriate command line options for the subsystems in use
+ *  plus other common options, and then any application-specific options.
+ *  This uses the SDL_Log() function and splits up output to be friendly to
+ *  80-character-wide terminals.
  *
- * \returns String with usage information
+ * \param state The common state describing the test window for the app.
+ * \param argv0 argv[0], as passed to main/SDL_main.
+ * \param options an array of strings for application specific options. The last element of the array should be NULL.
  */
-const char* SDLTest_CommonUsage (SDLTest_CommonState* state);
+void SDLTest_CommonLogUsage(SDLTest_CommonState * state, const char *argv0, const char **options);
 
 /**
  * \brief Open test window.
@@ -155,7 +162,18 @@ const char* SDLTest_CommonUsage (SDLTest_CommonState* state);
  *
  * \returns True if initialization succeeded, false otherwise
  */
-SDL_bool SDLTest_CommonInit (SDLTest_CommonState* state);
+SDL_bool SDLTest_CommonInit(SDLTest_CommonState * state);
+
+/**
+ * \brief Easy argument handling when test app doesn't need any custom args.
+ *
+ * \param state The common state describing the test window to create.
+ * \param argc argc, as supplied to SDL_main
+ * \param argv argv, as supplied to SDL_main
+ *
+ * \returns False if app should quit, true otherwise.
+ */
+SDL_bool SDLTest_CommonDefaultArgs(SDLTest_CommonState * state, const int argc, char **argv);
 
 /**
  * \brief Common event handler for test windows.
@@ -165,8 +183,7 @@ SDL_bool SDLTest_CommonInit (SDLTest_CommonState* state);
  * \param done Flag indicating we are done.
  *
  */
-void SDLTest_CommonEvent (SDLTest_CommonState* state, SDL_Event* event,
-                          int* done);
+void SDLTest_CommonEvent(SDLTest_CommonState * state, SDL_Event * event, int *done);
 
 /**
  * \brief Close test window.
@@ -174,7 +191,7 @@ void SDLTest_CommonEvent (SDLTest_CommonState* state, SDL_Event* event,
  * \param state The common state used to create test window.
  *
  */
-void SDLTest_CommonQuit (SDLTest_CommonState* state);
+void SDLTest_CommonQuit(SDLTest_CommonState * state);
 
 
 /* Ends C function definitions when using C++ */
@@ -183,6 +200,6 @@ void SDLTest_CommonQuit (SDLTest_CommonState* state);
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_test_common_h */
+#endif /* SDL_test_common_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

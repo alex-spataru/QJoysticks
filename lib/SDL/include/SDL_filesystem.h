@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,8 +25,8 @@
  *  \brief Include file for filesystem SDL API functions
  */
 
-#ifndef _SDL_filesystem_h
-#define _SDL_filesystem_h
+#ifndef SDL_filesystem_h_
+#define SDL_filesystem_h_
 
 #include "SDL_stdinc.h"
 
@@ -60,7 +60,7 @@ extern "C" {
  *
  * \sa SDL_GetPrefPath
  */
-extern DECLSPEC char* SDLCALL SDL_GetBasePath (void);
+extern DECLSPEC char *SDLCALL SDL_GetBasePath(void);
 
 /**
  * \brief Get the user-and-app-specific path where files can be written.
@@ -123,8 +123,7 @@ extern DECLSPEC char* SDLCALL SDL_GetBasePath (void);
  *
  * \sa SDL_GetBasePath
  */
-extern DECLSPEC char* SDLCALL SDL_GetPrefPath (const char* org,
-                                               const char* app);
+extern DECLSPEC char *SDLCALL SDL_GetPrefPath(const char *org, const char *app);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
@@ -132,6 +131,6 @@ extern DECLSPEC char* SDLCALL SDL_GetPrefPath (const char* org,
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_filesystem_h */
+#endif /* SDL_filesystem_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

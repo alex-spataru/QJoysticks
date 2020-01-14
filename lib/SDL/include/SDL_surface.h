@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,8 +25,8 @@
  *  Header file for ::SDL_Surface definition and management functions.
  */
 
-#ifndef _SDL_surface_h
-#define _SDL_surface_h
+#ifndef SDL_surface_h_
+#define SDL_surface_h_
 
 #include "SDL_stdinc.h"
 #include "SDL_pixels.h"
@@ -53,6 +53,7 @@ extern "C" {
 #define SDL_PREALLOC        0x00000001  /**< Surface uses preallocated memory */
 #define SDL_RLEACCEL        0x00000002  /**< Surface is RLE encoded */
 #define SDL_DONTFREE        0x00000004  /**< Surface is referenced internally */
+#define SDL_SIMD_ALIGNED    0x00000008  /**< Surface uses aligned memory */
 /* @} *//* Surface flags */
 
 /**
@@ -66,25 +67,26 @@ extern "C" {
  * \note  This structure should be treated as read-only, except for \c pixels,
  *        which, if not NULL, contains the raw pixel data for the surface.
  */
-typedef struct SDL_Surface {
+typedef struct SDL_Surface
+{
     Uint32 flags;               /**< Read-only */
-    SDL_PixelFormat* format;    /**< Read-only */
+    SDL_PixelFormat *format;    /**< Read-only */
     int w, h;                   /**< Read-only */
     int pitch;                  /**< Read-only */
-    void* pixels;               /**< Read-write */
+    void *pixels;               /**< Read-write */
 
     /** Application data associated with the surface */
-    void* userdata;             /**< Read-write */
+    void *userdata;             /**< Read-write */
 
     /** information needed for surfaces requiring locks */
     int locked;                 /**< Read-only */
-    void* lock_data;            /**< Read-only */
+    void *lock_data;            /**< Read-only */
 
     /** clipping information */
     SDL_Rect clip_rect;         /**< Read-only */
 
     /** info for fast blit mapping to other surfaces */
-    struct SDL_BlitMap* map;    /**< Private */
+    struct SDL_BlitMap *map;    /**< Private */
 
     /** Reference count -- used when freeing surface */
     int refcount;               /**< Read-mostly */
@@ -93,8 +95,19 @@ typedef struct SDL_Surface {
 /**
  * \brief The type of function used for surface blitting functions.
  */
-typedef int (*SDL_blit) (struct SDL_Surface* src, SDL_Rect* srcrect,
-                         struct SDL_Surface* dst, SDL_Rect* dstrect);
+typedef int (SDLCALL *SDL_blit) (struct SDL_Surface * src, SDL_Rect * srcrect,
+                                 struct SDL_Surface * dst, SDL_Rect * dstrect);
+
+/**
+ * \brief The formula used for converting between YUV and RGB
+ */
+typedef enum
+{
+    SDL_YUV_CONVERSION_JPEG,        /**< Full range JPEG */
+    SDL_YUV_CONVERSION_BT601,       /**< BT.601 (the default) */
+    SDL_YUV_CONVERSION_BT709,       /**< BT.709 */
+    SDL_YUV_CONVERSION_AUTOMATIC    /**< BT.601 for SD content, BT.709 for HD content */
+} SDL_YUV_CONVERSION_MODE;
 
 /**
  *  Allocate and free an RGB surface.
@@ -114,23 +127,26 @@ typedef int (*SDL_blit) (struct SDL_Surface* src, SDL_Rect* srcrect,
  *  \param Bmask The blue mask of the surface to create.
  *  \param Amask The alpha mask of the surface to create.
  */
-extern DECLSPEC SDL_Surface* SDLCALL SDL_CreateRGBSurface
-(Uint32 flags, int width, int height, int depth,
- Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
-extern DECLSPEC SDL_Surface* SDLCALL SDL_CreateRGBSurfaceWithFormat
-(Uint32 flags, int width, int height, int depth, Uint32 format);
-extern DECLSPEC SDL_Surface* SDLCALL SDL_CreateRGBSurfaceFrom (void* pixels,
-        int width,
-        int height,
-        int depth,
-        int pitch,
-        Uint32 Rmask,
-        Uint32 Gmask,
-        Uint32 Bmask,
-        Uint32 Amask);
-extern DECLSPEC SDL_Surface* SDLCALL SDL_CreateRGBSurfaceWithFormatFrom
-(void* pixels, int width, int height, int depth, int pitch, Uint32 format);
-extern DECLSPEC void SDLCALL SDL_FreeSurface (SDL_Surface* surface);
+extern DECLSPEC SDL_Surface *SDLCALL SDL_CreateRGBSurface
+    (Uint32 flags, int width, int height, int depth,
+     Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+
+/* !!! FIXME for 2.1: why does this ask for depth? Format provides that. */
+extern DECLSPEC SDL_Surface *SDLCALL SDL_CreateRGBSurfaceWithFormat
+    (Uint32 flags, int width, int height, int depth, Uint32 format);
+
+extern DECLSPEC SDL_Surface *SDLCALL SDL_CreateRGBSurfaceFrom(void *pixels,
+                                                              int width,
+                                                              int height,
+                                                              int depth,
+                                                              int pitch,
+                                                              Uint32 Rmask,
+                                                              Uint32 Gmask,
+                                                              Uint32 Bmask,
+                                                              Uint32 Amask);
+extern DECLSPEC SDL_Surface *SDLCALL SDL_CreateRGBSurfaceWithFormatFrom
+    (void *pixels, int width, int height, int depth, int pitch, Uint32 format);
+extern DECLSPEC void SDLCALL SDL_FreeSurface(SDL_Surface * surface);
 
 /**
  *  \brief Set the palette used by a surface.
@@ -139,8 +155,8 @@ extern DECLSPEC void SDLCALL SDL_FreeSurface (SDL_Surface* surface);
  *
  *  \note A single palette can be shared with many surfaces.
  */
-extern DECLSPEC int SDLCALL SDL_SetSurfacePalette (SDL_Surface* surface,
-        SDL_Palette* palette);
+extern DECLSPEC int SDLCALL SDL_SetSurfacePalette(SDL_Surface * surface,
+                                                  SDL_Palette * palette);
 
 /**
  *  \brief Sets up a surface for directly accessing the pixels.
@@ -161,9 +177,9 @@ extern DECLSPEC int SDLCALL SDL_SetSurfacePalette (SDL_Surface* surface,
  *
  *  \sa SDL_UnlockSurface()
  */
-extern DECLSPEC int SDLCALL SDL_LockSurface (SDL_Surface* surface);
+extern DECLSPEC int SDLCALL SDL_LockSurface(SDL_Surface * surface);
 /** \sa SDL_LockSurface() */
-extern DECLSPEC void SDLCALL SDL_UnlockSurface (SDL_Surface* surface);
+extern DECLSPEC void SDLCALL SDL_UnlockSurface(SDL_Surface * surface);
 
 /**
  *  Load a surface from a seekable SDL data stream (memory or file).
@@ -174,8 +190,8 @@ extern DECLSPEC void SDLCALL SDL_UnlockSurface (SDL_Surface* surface);
  *
  *  \return the new surface, or NULL if there was an error.
  */
-extern DECLSPEC SDL_Surface* SDLCALL SDL_LoadBMP_RW (SDL_RWops* src,
-        int freesrc);
+extern DECLSPEC SDL_Surface *SDLCALL SDL_LoadBMP_RW(SDL_RWops * src,
+                                                    int freesrc);
 
 /**
  *  Load a surface from a file.
@@ -198,7 +214,7 @@ extern DECLSPEC SDL_Surface* SDLCALL SDL_LoadBMP_RW (SDL_RWops* src,
  *  \return 0 if successful or -1 if there was an error.
  */
 extern DECLSPEC int SDLCALL SDL_SaveBMP_RW
-(SDL_Surface* surface, SDL_RWops* dst, int freedst);
+    (SDL_Surface * surface, SDL_RWops * dst, int freedst);
 
 /**
  *  Save a surface to a file.
@@ -206,7 +222,7 @@ extern DECLSPEC int SDLCALL SDL_SaveBMP_RW
  *  Convenience macro.
  */
 #define SDL_SaveBMP(surface, file) \
-    SDL_SaveBMP_RW(surface, SDL_RWFromFile(file, "wb"), 1)
+        SDL_SaveBMP_RW(surface, SDL_RWFromFile(file, "wb"), 1)
 
 /**
  *  \brief Sets the RLE acceleration hint for a surface.
@@ -216,8 +232,8 @@ extern DECLSPEC int SDLCALL SDL_SaveBMP_RW
  *  \note If RLE is enabled, colorkey and alpha blending blits are much faster,
  *        but the surface must be locked before directly accessing the pixels.
  */
-extern DECLSPEC int SDLCALL SDL_SetSurfaceRLE (SDL_Surface* surface,
-                                               int flag);
+extern DECLSPEC int SDLCALL SDL_SetSurfaceRLE(SDL_Surface * surface,
+                                              int flag);
 
 /**
  *  \brief Sets the color key (transparent pixel) in a blittable surface.
@@ -230,8 +246,15 @@ extern DECLSPEC int SDLCALL SDL_SetSurfaceRLE (SDL_Surface* surface,
  *
  *  You can pass SDL_RLEACCEL to enable RLE accelerated blits.
  */
-extern DECLSPEC int SDLCALL SDL_SetColorKey (SDL_Surface* surface,
-                                             int flag, Uint32 key);
+extern DECLSPEC int SDLCALL SDL_SetColorKey(SDL_Surface * surface,
+                                            int flag, Uint32 key);
+
+/**
+ *  \brief Returns whether the surface has a color key
+ *
+ *  \return SDL_TRUE if the surface has a color key, or SDL_FALSE if the surface is NULL or has no color key
+ */
+extern DECLSPEC SDL_bool SDLCALL SDL_HasColorKey(SDL_Surface * surface);
 
 /**
  *  \brief Gets the color key (transparent pixel) in a blittable surface.
@@ -243,8 +266,8 @@ extern DECLSPEC int SDLCALL SDL_SetColorKey (SDL_Surface* surface,
  *  \return 0 on success, or -1 if the surface is not valid or colorkey is not
  *          enabled.
  */
-extern DECLSPEC int SDLCALL SDL_GetColorKey (SDL_Surface* surface,
-                                             Uint32* key);
+extern DECLSPEC int SDLCALL SDL_GetColorKey(SDL_Surface * surface,
+                                            Uint32 * key);
 
 /**
  *  \brief Set an additional color value used in blit operations.
@@ -258,8 +281,8 @@ extern DECLSPEC int SDLCALL SDL_GetColorKey (SDL_Surface* surface,
  *
  *  \sa SDL_GetSurfaceColorMod()
  */
-extern DECLSPEC int SDLCALL SDL_SetSurfaceColorMod (SDL_Surface* surface,
-        Uint8 r, Uint8 g, Uint8 b);
+extern DECLSPEC int SDLCALL SDL_SetSurfaceColorMod(SDL_Surface * surface,
+                                                   Uint8 r, Uint8 g, Uint8 b);
 
 
 /**
@@ -274,9 +297,9 @@ extern DECLSPEC int SDLCALL SDL_SetSurfaceColorMod (SDL_Surface* surface,
  *
  *  \sa SDL_SetSurfaceColorMod()
  */
-extern DECLSPEC int SDLCALL SDL_GetSurfaceColorMod (SDL_Surface* surface,
-        Uint8* r, Uint8* g,
-        Uint8* b);
+extern DECLSPEC int SDLCALL SDL_GetSurfaceColorMod(SDL_Surface * surface,
+                                                   Uint8 * r, Uint8 * g,
+                                                   Uint8 * b);
 
 /**
  *  \brief Set an additional alpha value used in blit operations.
@@ -288,8 +311,8 @@ extern DECLSPEC int SDLCALL SDL_GetSurfaceColorMod (SDL_Surface* surface,
  *
  *  \sa SDL_GetSurfaceAlphaMod()
  */
-extern DECLSPEC int SDLCALL SDL_SetSurfaceAlphaMod (SDL_Surface* surface,
-        Uint8 alpha);
+extern DECLSPEC int SDLCALL SDL_SetSurfaceAlphaMod(SDL_Surface * surface,
+                                                   Uint8 alpha);
 
 /**
  *  \brief Get the additional alpha value used in blit operations.
@@ -301,8 +324,8 @@ extern DECLSPEC int SDLCALL SDL_SetSurfaceAlphaMod (SDL_Surface* surface,
  *
  *  \sa SDL_SetSurfaceAlphaMod()
  */
-extern DECLSPEC int SDLCALL SDL_GetSurfaceAlphaMod (SDL_Surface* surface,
-        Uint8* alpha);
+extern DECLSPEC int SDLCALL SDL_GetSurfaceAlphaMod(SDL_Surface * surface,
+                                                   Uint8 * alpha);
 
 /**
  *  \brief Set the blend mode used for blit operations.
@@ -314,8 +337,8 @@ extern DECLSPEC int SDLCALL SDL_GetSurfaceAlphaMod (SDL_Surface* surface,
  *
  *  \sa SDL_GetSurfaceBlendMode()
  */
-extern DECLSPEC int SDLCALL SDL_SetSurfaceBlendMode (SDL_Surface* surface,
-        SDL_BlendMode blendMode);
+extern DECLSPEC int SDLCALL SDL_SetSurfaceBlendMode(SDL_Surface * surface,
+                                                    SDL_BlendMode blendMode);
 
 /**
  *  \brief Get the blend mode used for blit operations.
@@ -327,8 +350,8 @@ extern DECLSPEC int SDLCALL SDL_SetSurfaceBlendMode (SDL_Surface* surface,
  *
  *  \sa SDL_SetSurfaceBlendMode()
  */
-extern DECLSPEC int SDLCALL SDL_GetSurfaceBlendMode (SDL_Surface* surface,
-        SDL_BlendMode* blendMode);
+extern DECLSPEC int SDLCALL SDL_GetSurfaceBlendMode(SDL_Surface * surface,
+                                                    SDL_BlendMode *blendMode);
 
 /**
  *  Sets the clipping rectangle for the destination surface in a blit.
@@ -343,8 +366,8 @@ extern DECLSPEC int SDLCALL SDL_GetSurfaceBlendMode (SDL_Surface* surface,
  *  Note that blits are automatically clipped to the edges of the source
  *  and destination surfaces.
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_SetClipRect (SDL_Surface* surface,
-                                                  const SDL_Rect* rect);
+extern DECLSPEC SDL_bool SDLCALL SDL_SetClipRect(SDL_Surface * surface,
+                                                 const SDL_Rect * rect);
 
 /**
  *  Gets the clipping rectangle for the destination surface in a blit.
@@ -352,8 +375,13 @@ extern DECLSPEC SDL_bool SDLCALL SDL_SetClipRect (SDL_Surface* surface,
  *  \c rect must be a pointer to a valid rectangle which will be filled
  *  with the correct values.
  */
-extern DECLSPEC void SDLCALL SDL_GetClipRect (SDL_Surface* surface,
-                                              SDL_Rect* rect);
+extern DECLSPEC void SDLCALL SDL_GetClipRect(SDL_Surface * surface,
+                                             SDL_Rect * rect);
+
+/*
+ * Creates a new surface identical to the existing surface
+ */
+extern DECLSPEC SDL_Surface *SDLCALL SDL_DuplicateSurface(SDL_Surface * surface);
 
 /**
  *  Creates a new surface of the specified format, and then copies and maps
@@ -365,21 +393,21 @@ extern DECLSPEC void SDLCALL SDL_GetClipRect (SDL_Surface* surface,
  *  SDL will try to RLE accelerate colorkey and alpha blits in the resulting
  *  surface.
  */
-extern DECLSPEC SDL_Surface* SDLCALL SDL_ConvertSurface
-(SDL_Surface* src, const SDL_PixelFormat* fmt, Uint32 flags);
-extern DECLSPEC SDL_Surface* SDLCALL SDL_ConvertSurfaceFormat
-(SDL_Surface* src, Uint32 pixel_format, Uint32 flags);
+extern DECLSPEC SDL_Surface *SDLCALL SDL_ConvertSurface
+    (SDL_Surface * src, const SDL_PixelFormat * fmt, Uint32 flags);
+extern DECLSPEC SDL_Surface *SDLCALL SDL_ConvertSurfaceFormat
+    (SDL_Surface * src, Uint32 pixel_format, Uint32 flags);
 
 /**
  * \brief Copy a block of pixels of one format to another format
  *
  *  \return 0 on success, or -1 if there was an error
  */
-extern DECLSPEC int SDLCALL SDL_ConvertPixels (int width, int height,
-                                               Uint32 src_format,
-                                               const void* src, int src_pitch,
-                                               Uint32 dst_format,
-                                               void* dst, int dst_pitch);
+extern DECLSPEC int SDLCALL SDL_ConvertPixels(int width, int height,
+                                              Uint32 src_format,
+                                              const void * src, int src_pitch,
+                                              Uint32 dst_format,
+                                              void * dst, int dst_pitch);
 
 /**
  *  Performs a fast fill of the given rectangle with \c color.
@@ -392,9 +420,9 @@ extern DECLSPEC int SDLCALL SDL_ConvertPixels (int width, int height,
  *  \return 0 on success, or -1 on error.
  */
 extern DECLSPEC int SDLCALL SDL_FillRect
-(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color);
+    (SDL_Surface * dst, const SDL_Rect * rect, Uint32 color);
 extern DECLSPEC int SDLCALL SDL_FillRects
-(SDL_Surface* dst, const SDL_Rect* rects, int count, Uint32 color);
+    (SDL_Surface * dst, const SDL_Rect * rects, int count, Uint32 color);
 
 /**
  *  Performs a fast blit from the source surface to the destination surface.
@@ -460,16 +488,16 @@ extern DECLSPEC int SDLCALL SDL_FillRects
  *  rectangle validation and clipping before passing it to SDL_LowerBlit()
  */
 extern DECLSPEC int SDLCALL SDL_UpperBlit
-(SDL_Surface* src, const SDL_Rect* srcrect,
- SDL_Surface* dst, SDL_Rect* dstrect);
+    (SDL_Surface * src, const SDL_Rect * srcrect,
+     SDL_Surface * dst, SDL_Rect * dstrect);
 
 /**
  *  This is a semi-private blit function and it performs low-level surface
  *  blitting only.
  */
 extern DECLSPEC int SDLCALL SDL_LowerBlit
-(SDL_Surface* src, SDL_Rect* srcrect,
- SDL_Surface* dst, SDL_Rect* dstrect);
+    (SDL_Surface * src, SDL_Rect * srcrect,
+     SDL_Surface * dst, SDL_Rect * dstrect);
 
 /**
  *  \brief Perform a fast, low quality, stretch blit between two surfaces of the
@@ -477,10 +505,10 @@ extern DECLSPEC int SDLCALL SDL_LowerBlit
  *
  *  \note This function uses a static buffer, and is not thread-safe.
  */
-extern DECLSPEC int SDLCALL SDL_SoftStretch (SDL_Surface* src,
-                                             const SDL_Rect* srcrect,
-                                             SDL_Surface* dst,
-                                             const SDL_Rect* dstrect);
+extern DECLSPEC int SDLCALL SDL_SoftStretch(SDL_Surface * src,
+                                            const SDL_Rect * srcrect,
+                                            SDL_Surface * dst,
+                                            const SDL_Rect * dstrect);
 
 #define SDL_BlitScaled SDL_UpperBlitScaled
 
@@ -489,17 +517,31 @@ extern DECLSPEC int SDLCALL SDL_SoftStretch (SDL_Surface* src,
  *  rectangle validation and clipping before passing it to SDL_LowerBlitScaled()
  */
 extern DECLSPEC int SDLCALL SDL_UpperBlitScaled
-(SDL_Surface* src, const SDL_Rect* srcrect,
- SDL_Surface* dst, SDL_Rect* dstrect);
+    (SDL_Surface * src, const SDL_Rect * srcrect,
+    SDL_Surface * dst, SDL_Rect * dstrect);
 
 /**
  *  This is a semi-private blit function and it performs low-level surface
  *  scaled blitting only.
  */
 extern DECLSPEC int SDLCALL SDL_LowerBlitScaled
-(SDL_Surface* src, SDL_Rect* srcrect,
- SDL_Surface* dst, SDL_Rect* dstrect);
+    (SDL_Surface * src, SDL_Rect * srcrect,
+    SDL_Surface * dst, SDL_Rect * dstrect);
 
+/**
+ *  \brief Set the YUV conversion mode
+ */
+extern DECLSPEC void SDLCALL SDL_SetYUVConversionMode(SDL_YUV_CONVERSION_MODE mode);
+
+/**
+ *  \brief Get the YUV conversion mode
+ */
+extern DECLSPEC SDL_YUV_CONVERSION_MODE SDLCALL SDL_GetYUVConversionMode(void);
+
+/**
+ *  \brief Get the YUV conversion mode, returning the correct mode for the resolution when the current conversion mode is SDL_YUV_CONVERSION_AUTOMATIC
+ */
+extern DECLSPEC SDL_YUV_CONVERSION_MODE SDLCALL SDL_GetYUVConversionModeForResolution(int width, int height);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
@@ -507,6 +549,6 @@ extern DECLSPEC int SDLCALL SDL_LowerBlitScaled
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_surface_h */
+#endif /* SDL_surface_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef _SDL_power_h
-#define _SDL_power_h
+#ifndef SDL_power_h_
+#define SDL_power_h_
 
 /**
  *  \file SDL_power.h
@@ -39,7 +39,8 @@ extern "C" {
 /**
  *  \brief The basic state for the system's power supply.
  */
-typedef enum {
+typedef enum
+{
     SDL_POWERSTATE_UNKNOWN,      /**< cannot determine power status */
     SDL_POWERSTATE_ON_BATTERY,   /**< Not plugged in, running on the battery */
     SDL_POWERSTATE_NO_BATTERY,   /**< Plugged in, no battery available */
@@ -61,7 +62,7 @@ typedef enum {
  *
  *  \return The state of the battery (if any).
  */
-extern DECLSPEC SDL_PowerState SDLCALL SDL_GetPowerInfo (int* secs, int* pct);
+extern DECLSPEC SDL_PowerState SDLCALL SDL_GetPowerInfo(int *secs, int *pct);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
@@ -69,6 +70,6 @@ extern DECLSPEC SDL_PowerState SDLCALL SDL_GetPowerInfo (int* secs, int* pct);
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_power_h */
+#endif /* SDL_power_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

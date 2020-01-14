@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef _SDL_shape_h
-#define _SDL_shape_h
+#ifndef SDL_shape_h_
+#define SDL_shape_h_
 
 #include "SDL_stdinc.h"
 #include "SDL_pixels.h"
@@ -63,9 +63,7 @@ extern "C" {
  *
  *  \sa SDL_DestroyWindow()
  */
-extern DECLSPEC SDL_Window* SDLCALL SDL_CreateShapedWindow (const char* title,
-        unsigned int x,
-        unsigned int y, unsigned int w, unsigned int h, Uint32 flags);
+extern DECLSPEC SDL_Window * SDLCALL SDL_CreateShapedWindow(const char *title,unsigned int x,unsigned int y,unsigned int w,unsigned int h,Uint32 flags);
 
 /**
  * \brief Return whether the given window is a shaped window.
@@ -73,9 +71,10 @@ extern DECLSPEC SDL_Window* SDLCALL SDL_CreateShapedWindow (const char* title,
  * \param window The window to query for being shaped.
  *
  * \return SDL_TRUE if the window is a window that can be shaped, SDL_FALSE if the window is unshaped or NULL.
+ *
  * \sa SDL_CreateShapedWindow
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_IsShapedWindow (const SDL_Window* window);
+extern DECLSPEC SDL_bool SDLCALL SDL_IsShapedWindow(const SDL_Window *window);
 
 /** \brief An enum denoting the specific type of contents present in an SDL_WindowShapeParams union. */
 typedef enum {
@@ -93,7 +92,7 @@ typedef enum {
 
 /** \brief A union containing parameters for shaped windows. */
 typedef union {
-    /** \brief a cutoff alpha value for binarization of the window shape's alpha channel. */
+    /** \brief A cutoff alpha value for binarization of the window shape's alpha channel. */
     Uint8 binarizationCutoff;
     SDL_Color colorKey;
 } SDL_WindowShapeParams;
@@ -113,15 +112,13 @@ typedef struct SDL_WindowShapeMode {
  * \param shape A surface encoding the desired shape for the window.
  * \param shape_mode The parameters to set for the shaped window.
  *
- * \return 0 on success, SDL_INVALID_SHAPE_ARGUMENT on invalid an invalid shape argument, or SDL_NONSHAPEABLE_WINDOW
- *           if the SDL_Window* given does not reference a valid shaped window.
+ * \return 0 on success, SDL_INVALID_SHAPE_ARGUMENT on an invalid shape argument, or SDL_NONSHAPEABLE_WINDOW
+ *           if the SDL_Window given does not reference a valid shaped window.
  *
  * \sa SDL_WindowShapeMode
  * \sa SDL_GetShapedWindowMode.
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowShape (SDL_Window* window,
-                                                SDL_Surface* shape,
-                                                SDL_WindowShapeMode* shape_mode);
+extern DECLSPEC int SDLCALL SDL_SetWindowShape(SDL_Window *window,SDL_Surface *shape,SDL_WindowShapeMode *shape_mode);
 
 /**
  * \brief Get the shape parameters of a shaped window.
@@ -131,13 +128,12 @@ extern DECLSPEC int SDLCALL SDL_SetWindowShape (SDL_Window* window,
  *
  * \return 0 if the window has a shape and, provided shape_mode was not NULL, shape_mode has been filled with the mode
  *           data, SDL_NONSHAPEABLE_WINDOW if the SDL_Window given is not a shaped window, or SDL_WINDOW_LACKS_SHAPE if
- *           the SDL_Window* given is a shapeable window currently lacking a shape.
+ *           the SDL_Window given is a shapeable window currently lacking a shape.
  *
  * \sa SDL_WindowShapeMode
  * \sa SDL_SetWindowShape
  */
-extern DECLSPEC int SDLCALL SDL_GetShapedWindowMode (SDL_Window* window,
-        SDL_WindowShapeMode* shape_mode);
+extern DECLSPEC int SDLCALL SDL_GetShapedWindowMode(SDL_Window *window,SDL_WindowShapeMode *shape_mode);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
@@ -145,4 +141,4 @@ extern DECLSPEC int SDLCALL SDL_GetShapedWindowMode (SDL_Window* window,
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_shape_h */
+#endif /* SDL_shape_h_ */

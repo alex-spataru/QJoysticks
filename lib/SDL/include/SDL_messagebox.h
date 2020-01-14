@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef _SDL_messagebox_h
-#define _SDL_messagebox_h
+#ifndef SDL_messagebox_h_
+#define SDL_messagebox_h_
 
 #include "SDL_stdinc.h"
 #include "SDL_video.h"      /* For SDL_Window */
@@ -34,7 +34,8 @@ extern "C" {
 /**
  * \brief SDL_MessageBox flags. If supported will display warning icon, etc.
  */
-typedef enum {
+typedef enum
+{
     SDL_MESSAGEBOX_ERROR        = 0x00000010,   /**< error dialog */
     SDL_MESSAGEBOX_WARNING      = 0x00000020,   /**< warning dialog */
     SDL_MESSAGEBOX_INFORMATION  = 0x00000040    /**< informational dialog */
@@ -43,7 +44,8 @@ typedef enum {
 /**
  * \brief Flags for SDL_MessageBoxButtonData.
  */
-typedef enum {
+typedef enum
+{
     SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001,  /**< Marks the default button when return is hit */
     SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002   /**< Marks the default button when escape is hit */
 } SDL_MessageBoxButtonFlags;
@@ -51,20 +53,23 @@ typedef enum {
 /**
  *  \brief Individual button data.
  */
-typedef struct {
+typedef struct
+{
     Uint32 flags;       /**< ::SDL_MessageBoxButtonFlags */
     int buttonid;       /**< User defined button id (value returned via SDL_ShowMessageBox) */
-    const char* text;   /**< The UTF-8 button text */
+    const char * text;  /**< The UTF-8 button text */
 } SDL_MessageBoxButtonData;
 
 /**
  * \brief RGB value used in a message box color scheme
  */
-typedef struct {
+typedef struct
+{
     Uint8 r, g, b;
 } SDL_MessageBoxColor;
 
-typedef enum {
+typedef enum
+{
     SDL_MESSAGEBOX_COLOR_BACKGROUND,
     SDL_MESSAGEBOX_COLOR_TEXT,
     SDL_MESSAGEBOX_COLOR_BUTTON_BORDER,
@@ -76,24 +81,25 @@ typedef enum {
 /**
  * \brief A set of colors to use for message box dialogs
  */
-typedef struct {
+typedef struct
+{
     SDL_MessageBoxColor colors[SDL_MESSAGEBOX_COLOR_MAX];
 } SDL_MessageBoxColorScheme;
 
 /**
  *  \brief MessageBox structure containing title, text, window, etc.
  */
-typedef struct {
+typedef struct
+{
     Uint32 flags;                       /**< ::SDL_MessageBoxFlags */
-    SDL_Window* window;                 /**< Parent window, can be NULL */
-    const char* title;                  /**< UTF-8 title */
-    const char* message;                /**< UTF-8 message text */
+    SDL_Window *window;                 /**< Parent window, can be NULL */
+    const char *title;                  /**< UTF-8 title */
+    const char *message;                /**< UTF-8 message text */
 
     int numbuttons;
-    const SDL_MessageBoxButtonData* buttons;
+    const SDL_MessageBoxButtonData *buttons;
 
-    const SDL_MessageBoxColorScheme*
-    colorScheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
+    const SDL_MessageBoxColorScheme *colorScheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
 } SDL_MessageBoxData;
 
 /**
@@ -110,9 +116,7 @@ typedef struct {
  *        block execution of that thread until the user clicks a button or
  *        closes the messagebox.
  */
-extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData*
-                                                messageboxdata,
-                                                int* buttonid);
+extern DECLSPEC int SDLCALL SDL_ShowMessageBox(const SDL_MessageBoxData *messageboxdata, int *buttonid);
 
 /**
  *  \brief Create a simple modal message box
@@ -126,9 +130,7 @@ extern DECLSPEC int SDLCALL SDL_ShowMessageBox (const SDL_MessageBoxData*
  *
  *  \sa SDL_ShowMessageBox
  */
-extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox (Uint32 flags,
-        const char* title,
-        const char* message, SDL_Window* window);
+extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox(Uint32 flags, const char *title, const char *message, SDL_Window *window);
 
 
 /* Ends C function definitions when using C++ */
@@ -137,6 +139,6 @@ extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox (Uint32 flags,
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_messagebox_h */
+#endif /* SDL_messagebox_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

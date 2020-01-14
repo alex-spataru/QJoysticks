@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef _SDL_timer_h
-#define _SDL_timer_h
+#ifndef SDL_timer_h_
+#define SDL_timer_h_
 
 /**
  *  \file SDL_timer.h
@@ -42,7 +42,7 @@ extern "C" {
  *
  * \note This value wraps if the program runs for more than ~49 days.
  */
-extern DECLSPEC Uint32 SDLCALL SDL_GetTicks (void);
+extern DECLSPEC Uint32 SDLCALL SDL_GetTicks(void);
 
 /**
  * \brief Compare SDL ticks values, and return true if A has passed B
@@ -58,17 +58,17 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetTicks (void);
 /**
  * \brief Get the current value of the high resolution counter
  */
-extern DECLSPEC Uint64 SDLCALL SDL_GetPerformanceCounter (void);
+extern DECLSPEC Uint64 SDLCALL SDL_GetPerformanceCounter(void);
 
 /**
  * \brief Get the count per second of the high resolution counter
  */
-extern DECLSPEC Uint64 SDLCALL SDL_GetPerformanceFrequency (void);
+extern DECLSPEC Uint64 SDLCALL SDL_GetPerformanceFrequency(void);
 
 /**
  * \brief Wait a specified number of milliseconds before returning.
  */
-extern DECLSPEC void SDLCALL SDL_Delay (Uint32 ms);
+extern DECLSPEC void SDLCALL SDL_Delay(Uint32 ms);
 
 /**
  *  Function prototype for the timer callback function.
@@ -78,7 +78,7 @@ extern DECLSPEC void SDLCALL SDL_Delay (Uint32 ms);
  *  passed in, the periodic alarm continues, otherwise a new alarm is
  *  scheduled.  If the callback returns 0, the periodic alarm is cancelled.
  */
-typedef Uint32 (SDLCALL* SDL_TimerCallback) (Uint32 interval, void* param);
+typedef Uint32 (SDLCALL * SDL_TimerCallback) (Uint32 interval, void *param);
 
 /**
  * Definition of the timer ID type.
@@ -90,9 +90,9 @@ typedef int SDL_TimerID;
  *
  * \return A timer ID, or 0 when an error occurs.
  */
-extern DECLSPEC SDL_TimerID SDLCALL SDL_AddTimer (Uint32 interval,
-                                                  SDL_TimerCallback callback,
-                                                  void* param);
+extern DECLSPEC SDL_TimerID SDLCALL SDL_AddTimer(Uint32 interval,
+                                                 SDL_TimerCallback callback,
+                                                 void *param);
 
 /**
  * \brief Remove a timer knowing its ID.
@@ -101,7 +101,7 @@ extern DECLSPEC SDL_TimerID SDLCALL SDL_AddTimer (Uint32 interval,
  *
  * \warning It is not safe to remove a timer multiple times.
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_RemoveTimer (SDL_TimerID id);
+extern DECLSPEC SDL_bool SDLCALL SDL_RemoveTimer(SDL_TimerID id);
 
 
 /* Ends C function definitions when using C++ */
@@ -110,6 +110,6 @@ extern DECLSPEC SDL_bool SDLCALL SDL_RemoveTimer (SDL_TimerID id);
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_timer_h */
+#endif /* SDL_timer_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */
