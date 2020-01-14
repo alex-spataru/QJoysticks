@@ -136,7 +136,7 @@ void SDL_Joysticks::update()
             emit countChanged();
             break;
         case SDL_JOYAXISMOTION:
-        case SDL_CONTROLLERAXISMOTION:
+        //case SDL_CONTROLLERAXISMOTION:
             emit axisEvent (getAxisEvent (&event));
             break;
         case SDL_JOYBUTTONUP:
