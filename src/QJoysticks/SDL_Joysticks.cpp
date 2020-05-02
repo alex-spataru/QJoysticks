@@ -38,13 +38,13 @@ static QString GENERIC_MAPPINGS;
  * Load a different generic/backup mapping for each operating system.
  */
 #ifdef SDL_SUPPORTED
-    #if defined Q_OS_WIN
-        #define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Windows.txt"
-    #elif defined Q_OS_MAC
-        #define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/OSX.txt"
-    #elif defined Q_OS_LINUX && !defined Q_OS_ANDROID
-        #define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Linux.txt"
-    #endif
+#if defined Q_OS_WIN
+#define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Windows.txt"
+#elif defined Q_OS_MAC
+#define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/OSX.txt"
+#elif defined Q_OS_LINUX && !defined Q_OS_ANDROID
+#define GENERIC_MAPPINGS_PATH ":/QJoysticks/SDL/GenericMappings/Linux.txt"
+#endif
 #endif
 
 SDL_Joysticks::SDL_Joysticks (QObject* parent) : QObject (parent)
@@ -127,27 +127,30 @@ void SDL_Joysticks::update()
 
     while (SDL_PollEvent (&event)) {
         switch (event.type) {
-        case SDL_JOYDEVICEADDED:
-            configureJoystick (&event);
-            break;
-        case SDL_JOYDEVICEREMOVED:
-            SDL_JoystickClose (SDL_JoystickOpen (event.jdevice.which));
-            SDL_GameControllerClose (SDL_GameControllerOpen (event.cdevice.which));
-            emit countChanged();
-            break;
-        case SDL_JOYAXISMOTION:
-        case SDL_CONTROLLERAXISMOTION:
-            emit axisEvent (getAxisEvent (&event));
-            break;
-        case SDL_JOYBUTTONUP:
-            emit buttonEvent (getButtonEvent (&event));
-            break;
-        case SDL_JOYBUTTONDOWN:
-            emit buttonEvent (getButtonEvent (&event));
-            break;
-        case SDL_JOYHATMOTION:
-            emit POVEvent (getPOVEvent (&event));
-            break;
+            case SDL_JOYDEVICEADDED:
+                configureJoystick (&event);
+                break;
+            case SDL_JOYDEVICEREMOVED:
+                SDL_JoystickClose (SDL_JoystickOpen (event.jdevice.which));
+                SDL_GameControllerClose (SDL_GameControllerOpen (event.cdevice.which));
+                emit countChanged();
+                break;
+            case SDL_JOYAXISMOTION:
+            case SDL_CONTROLLERAXISMOTION:
+                emit axisEvent (getAxisEvent (&event));
+
+                qDebug()<<event.caxis.axis;
+
+                break;
+            case SDL_JOYBUTTONUP:
+                emit buttonEvent (getButtonEvent (&event));
+                break;
+            case SDL_JOYBUTTONDOWN:
+                emit buttonEvent (getButtonEvent (&event));
+                break;
+            case SDL_JOYHATMOTION:
+                emit POVEvent (getPOVEvent (&event));
+                break;
         }
     }
 
@@ -171,16 +174,20 @@ void SDL_Joysticks::configureJoystick (const SDL_Event* event)
             SDL_JoystickGetGUIDString (SDL_JoystickGetGUID (js), guid, sizeof (guid));
 
             QString mapping = QString ("%1,%2,%3")
-                              .arg (guid)
-                              .arg (SDL_JoystickName (js))
-                              .arg (GENERIC_MAPPINGS);
+                    .arg (guid)
+                    .arg (SDL_JoystickName (js))
+                    .arg (GENERIC_MAPPINGS);
 
             SDL_GameControllerAddMapping (mapping.toStdString().c_str());
             SDL_JoystickClose (js);
         }
     }
 
-    SDL_GameControllerOpen (event->cdevice.which);
+
+    SDL_GameController *controller = SDL_GameControllerOpen (event->cdevice.which);
+
+    qDebug()<<SDL_GameControllerMapping(controller);
+
 
     ++m_tracker;
     emit countChanged();
@@ -268,33 +275,33 @@ QJoystickPOVEvent SDL_Joysticks::getPOVEvent (const SDL_Event* sdl_event)
     event.joystick = getJoystick (sdl_event->jdevice.which);
 
     switch (sdl_event->jhat.value) {
-    case SDL_HAT_RIGHTUP:
-        event.angle = 45;
-        break;
-    case SDL_HAT_RIGHTDOWN:
-        event.angle = 135;
-        break;
-    case SDL_HAT_LEFTDOWN:
-        event.angle = 225;
-        break;
-    case SDL_HAT_LEFTUP:
-        event.angle = 315;
-        break;
-    case SDL_HAT_UP:
-        event.angle = 0;
-        break;
-    case SDL_HAT_RIGHT:
-        event.angle = 90;
-        break;
-    case SDL_HAT_DOWN:
-        event.angle = 180;
-        break;
-    case SDL_HAT_LEFT:
-        event.angle = 270;
-        break;
-    default:
-        event.angle = -1;
-        break;
+        case SDL_HAT_RIGHTUP:
+            event.angle = 45;
+            break;
+        case SDL_HAT_RIGHTDOWN:
+            event.angle = 135;
+            break;
+        case SDL_HAT_LEFTDOWN:
+            event.angle = 225;
+            break;
+        case SDL_HAT_LEFTUP:
+            event.angle = 315;
+            break;
+        case SDL_HAT_UP:
+            event.angle = 0;
+            break;
+        case SDL_HAT_RIGHT:
+            event.angle = 90;
+            break;
+        case SDL_HAT_DOWN:
+            event.angle = 180;
+            break;
+        case SDL_HAT_LEFT:
+            event.angle = 270;
+            break;
+        default:
+            event.angle = -1;
+            break;
     }
 #else
     Q_UNUSED (sdl_event);
@@ -315,6 +322,8 @@ QJoystickAxisEvent SDL_Joysticks::getAxisEvent (const SDL_Event* sdl_event)
     event.axis = sdl_event->caxis.axis;
     event.value = static_cast<qreal> (sdl_event->caxis.value) / 32767;
     event.joystick = getJoystick (sdl_event->cdevice.which);
+
+    qDebug()<<event.axis<<'\t'<<sdl_event->caxis.axis;
 #else
     Q_UNUSED (sdl_event);
 #endif
@@ -327,7 +336,7 @@ QJoystickAxisEvent SDL_Joysticks::getAxisEvent (const SDL_Event* sdl_event)
  * \c QJoystickButtonEvent to be used with the \c QJoysticks system.
  */
 QJoystickButtonEvent SDL_Joysticks::getButtonEvent (const SDL_Event*
-        sdl_event)
+                                                    sdl_event)
 {
     QJoystickButtonEvent event;
 

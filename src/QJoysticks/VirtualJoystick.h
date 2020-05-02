@@ -28,6 +28,21 @@
 #include <QApplication>
 #include <QJoysticks/JoysticksCommon.h>
 
+#include <QTimer>
+
+enum AxisState : qint8 {
+
+    INCREASE = -1,
+    STILL = 0,
+    DECREASE = 1
+
+};
+
+const qint16 axisMinimumV { -32767 };
+const qint16 axisMaximumV {  32767 };
+
+
+
 /**
  * \brief Translates keyboard input to joystick input
  *
@@ -56,8 +71,11 @@ public slots:
     void setAxisRange (qreal range);
     void setJoystickEnabled (bool enabled);
 
+    void setAxisSensibility(qreal sensibility);
+
 private slots:
     void readAxes (int key, bool pressed);
+    void updateAxis();
     void readPOVs (int key, bool pressed);
     void readButtons (int key, bool pressed);
     void processKeyEvent (QKeyEvent* event, bool pressed);
@@ -69,6 +87,17 @@ private:
     qreal m_axisRange;
     bool m_joystickEnabled;
     QJoystickDevice m_joystick;
+
+    qint16 axisStep;
+
+    std::vector<AxisState> axisStatus;
+    std::vector<qint16> axisValue;
+
+    QTimer *timerUpdateAxis;
+
+    void vChangeAxisValue(quint8 axis);
+    void haltAxis();
+
 };
 
 #endif

@@ -397,6 +397,11 @@ void QJoysticks::setVirtualJoystickEnabled (bool enabled)
     virtualJoystick()->setJoystickEnabled (enabled);
 }
 
+void QJoysticks::setVirtualJoystickAxisSensibility(qreal sensibility)
+{
+    virtualJoystick()->setAxisSensibility(sensibility);
+}
+
 /**
  * Removes all the registered joysticks and emits appropriate signals.
  */
