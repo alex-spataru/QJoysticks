@@ -100,6 +100,7 @@ public slots:
     void updateInterfaces();
     void setVirtualJoystickRange (qreal range);
     void setVirtualJoystickEnabled (bool enabled);
+    void setVirtualJoystickAxisSensibility(qreal sensibility);
     void setSortJoysticksByBlacklistState (bool sort);
     void setBlacklisted (int index, bool blacklisted);
 
