@@ -426,6 +426,9 @@ void QJoysticks::addInputDevice (QJoystickDevice* device)
  */
 void QJoysticks::onPOVEvent (const QJoystickPOVEvent& e)
 {
+    if(e.joystick == nullptr)
+        return;
+
     if (!isBlacklisted (e.joystick->id)) {
         if (e.pov < getInputDevice (e.joystick->id)->povs.count()) {
             getInputDevice (e.joystick->id)->povs [e.pov] = e.angle;
@@ -440,6 +443,9 @@ void QJoysticks::onPOVEvent (const QJoystickPOVEvent& e)
  */
 void QJoysticks::onAxisEvent (const QJoystickAxisEvent& e)
 {
+    if(e.joystick == nullptr)
+        return;
+
     if (!isBlacklisted (e.joystick->id)) {
         if (e.axis < getInputDevice (e.joystick->id)->axes.count()) {
             getInputDevice (e.joystick->id)->axes [e.axis] = e.value;
@@ -454,6 +460,9 @@ void QJoysticks::onAxisEvent (const QJoystickAxisEvent& e)
  */
 void QJoysticks::onButtonEvent (const QJoystickButtonEvent& e)
 {
+    if(e.joystick == nullptr)
+        return;
+
     if (!isBlacklisted (e.joystick->id)) {
         if (e.button < getInputDevice (e.joystick->id)->buttons.count()) {
             getInputDevice (e.joystick->id)->buttons [e.button] = e.pressed;

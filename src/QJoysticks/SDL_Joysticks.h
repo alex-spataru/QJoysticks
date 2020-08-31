@@ -25,6 +25,7 @@
 
 #include <SDL.h>
 #include <QObject>
+#include <QMap>
 #include <QJoysticks/JoysticksCommon.h>
 
 /**
@@ -53,7 +54,7 @@ public:
     SDL_Joysticks (QObject* parent = Q_NULLPTR);
     ~SDL_Joysticks();
 
-    QList<QJoystickDevice*> joysticks();
+    QMap<int, QJoystickDevice*> joysticks();
 
 public slots:
     void rumble (const QJoystickRumble& request);
@@ -71,7 +72,7 @@ private:
     QJoystickButtonEvent getButtonEvent (const SDL_Event* sdl_event);
 
     int m_tracker;
-    QList<QJoystickDevice> m_joysticks;
+    QMap<int, QJoystickDevice*> m_joysticks;
 };
 
 #endif
