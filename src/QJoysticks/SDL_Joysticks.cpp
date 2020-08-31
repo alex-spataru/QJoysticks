@@ -89,14 +89,7 @@ SDL_Joysticks::~SDL_Joysticks()
  */
 QList<QJoystickDevice*> SDL_Joysticks::joysticks()
 {
-    QList<QJoystickDevice*> list;
-
-#ifdef SDL_SUPPORTED
-    for (int i = 0; i < SDL_NumJoysticks(); ++i)
-        list.append (getJoystick (i));
-#endif
-
-    return list;
+    return m_joysticks;
 }
 
 /**
@@ -133,12 +126,19 @@ void SDL_Joysticks::update()
         case SDL_JOYDEVICEREMOVED:
             SDL_JoystickClose (SDL_JoystickOpen (event.jdevice.which));
             SDL_GameControllerClose (SDL_GameControllerOpen (event.cdevice.which));
+            delete m_joysticks[event.cdevice.which];
+            m_joysticks.removeAt(event.cdevice.which);
             emit countChanged();
             break;
         case SDL_JOYAXISMOTION:
-        case SDL_CONTROLLERAXISMOTION:
-            emit axisEvent (getAxisEvent (&event));
+            if(!SDL_IsGameController(event.cdevice.which)){
+               emit axisEvent(getAxisEvent (&event));
+        }
             break;
+        case SDL_CONTROLLERAXISMOTION:
+            if(SDL_IsGameController(event.cdevice.which)){
+              emit axisEvent(getAxisEvent (&event));
+        }   break;
         case SDL_JOYBUTTONUP:
             emit buttonEvent (getButtonEvent (&event));
             break;
@@ -182,6 +182,8 @@ void SDL_Joysticks::configureJoystick (const SDL_Event* event)
 
     SDL_GameControllerOpen (event->cdevice.which);
 
+    m_joysticks.append(getJoystick(event->cdevice.which));
+    
     ++m_tracker;
     emit countChanged();
 #else
@@ -265,7 +267,6 @@ QJoystickPOVEvent SDL_Joysticks::getPOVEvent (const SDL_Event* sdl_event)
 
 #ifdef SDL_SUPPORTED
     event.pov = sdl_event->jhat.hat;
-    event.joystick = getJoystick (sdl_event->jdevice.which);
 
     switch (sdl_event->jhat.value) {
     case SDL_HAT_RIGHTUP:
@@ -296,6 +297,8 @@ QJoystickPOVEvent SDL_Joysticks::getPOVEvent (const SDL_Event* sdl_event)
         event.angle = -1;
         break;
     }
+    event.joystick = m_joysticks[sdl_event->cdevice.which];
+    event.joystick->axes[event.pov] = event.angle;
 #else
     Q_UNUSED (sdl_event);
 #endif
@@ -314,7 +317,8 @@ QJoystickAxisEvent SDL_Joysticks::getAxisEvent (const SDL_Event* sdl_event)
 #ifdef SDL_SUPPORTED
     event.axis = sdl_event->caxis.axis;
     event.value = static_cast<qreal> (sdl_event->caxis.value) / 32767;
-    event.joystick = getJoystick (sdl_event->cdevice.which);
+    event.joystick = m_joysticks[sdl_event->cdevice.which];
+    event.joystick->axes[event.axis] = event.value;
 #else
     Q_UNUSED (sdl_event);
 #endif
@@ -334,7 +338,8 @@ QJoystickButtonEvent SDL_Joysticks::getButtonEvent (const SDL_Event*
 #ifdef SDL_SUPPORTED
     event.button = sdl_event->jbutton.button;
     event.pressed = sdl_event->jbutton.state == SDL_PRESSED;
-    event.joystick = getJoystick (sdl_event->jdevice.which);
+    event.joystick = m_joysticks[sdl_event->cdevice.which];
+    event.joystick->axes[event.button] = event.pressed;
 #else
     Q_UNUSED (sdl_event);
 #endif
