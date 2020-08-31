@@ -26,17 +26,9 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QApplication>
-#include <QTimer>
-#include <QScopedPointer>
-
 #include <QJoysticks/JoysticksCommon.h>
 
-#define AXIS_AD 0
-#define AXIS_SW 1
-#define AXIS_QE 2
-#define AXIS_UO 3
-#define AXIS_JL 4
-#define AXIS_KI 5
+#include <QTimer>
 
 enum AxisState : qint8 {
 
@@ -46,11 +38,9 @@ enum AxisState : qint8 {
 
 };
 
-const qint16 AXIS_MINIMUM_VIRTUAL_JOYSTICK { -32767 };
-const qint16 AXIS_MAXIMUM_VIRTUAL_JOYSTICK {  32767 };
+const qint16 axisMinimumV { -32767 };
+const qint16 axisMaximumV {  32767 };
 
-const int NUMBER_OF_AXES { 6 };
-const int NUMBER_OF_BUTTONS {10};
 
 
 /**
@@ -98,15 +88,15 @@ private:
     bool m_joystickEnabled;
     QJoystickDevice m_joystick;
 
-    qint16 m_axisStep;
+    qint16 axisStep;
 
-    QVector<AxisState> m_axisStatus;
-    QVector<qint16> m_axisValue;
+    std::vector<AxisState> axisStatus;
+    std::vector<qint16> axisValue;
 
-    QScopedPointer<QTimer> m_timerUpdateAxis;
+    QTimer *timerUpdateAxis;
 
-    void changeAxisValue(quint8 axis);
-    void resetAllAxes();
+    void vChangeAxisValue(quint8 axis);
+    void haltAxis();
 
 };
 
