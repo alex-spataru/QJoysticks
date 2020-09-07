@@ -367,6 +367,7 @@ QJoystickButtonEvent SDL_Joysticks::getButtonEvent (const SDL_Event* sdl_event)
     event.button = sdl_event->jbutton.button;
     event.pressed = sdl_event->jbutton.state == SDL_PRESSED;
     event.joystick = m_joysticks[sdl_event->jdevice.which];
+    event.joystick->buttons[event.button] = event.pressed;
 #else
     Q_UNUSED (sdl_event);
 #endif
