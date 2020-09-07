@@ -29,6 +29,10 @@ Temporary Items
 # Qt project file
 *.pro.user
 
+# Build files
+*build-*
+**/build
+
 # Custom folders
 .vscode
 .build

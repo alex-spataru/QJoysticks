@@ -74,6 +74,7 @@ int main (int argc, char* argv[])
     /* Enable the virtual joystick */
     instance->setVirtualJoystickRange (1);
     instance->setVirtualJoystickEnabled (true);
+    instance->setVirtualJoystickAxisSensibility(0.7);
 
     /*
      * Register the QJoysticks with the QML engine, so that the QML interface

@@ -26,7 +26,32 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QApplication>
+#include <QTimer>
+#include <QScopedPointer>
+
 #include <QJoysticks/JoysticksCommon.h>
+
+#define AXIS_AD 0
+#define AXIS_SW 1
+#define AXIS_QE 2
+#define AXIS_UO 3
+#define AXIS_JL 4
+#define AXIS_KI 5
+
+enum AxisState : qint8 {
+
+    INCREASE = -1,
+    STILL = 0,
+    DECREASE = 1
+
+};
+
+const qint16 AXIS_MINIMUM_VIRTUAL_JOYSTICK { -32767 };
+const qint16 AXIS_MAXIMUM_VIRTUAL_JOYSTICK {  32767 };
+
+const int NUMBER_OF_AXES { 6 };
+const int NUMBER_OF_BUTTONS {10};
+
 
 /**
  * \brief Translates keyboard input to joystick input
@@ -56,8 +81,11 @@ public slots:
     void setAxisRange (qreal range);
     void setJoystickEnabled (bool enabled);
 
+    void setAxisSensibility(qreal sensibility);
+
 private slots:
     void readAxes (int key, bool pressed);
+    void updateAxis();
     void readPOVs (int key, bool pressed);
     void readButtons (int key, bool pressed);
     void processKeyEvent (QKeyEvent* event, bool pressed);
@@ -69,6 +97,17 @@ private:
     qreal m_axisRange;
     bool m_joystickEnabled;
     QJoystickDevice m_joystick;
+
+    qint16 m_axisStep;
+
+    QVector<AxisState> m_axisStatus;
+    QVector<qint16> m_axisValue;
+
+    QScopedPointer<QTimer> m_timerUpdateAxis;
+
+    void changeAxisValue(quint8 axis);
+    void resetAllAxes();
+
 };
 
 #endif
