@@ -71,7 +71,6 @@ private:
     QJoystickAxisEvent getAxisEvent (const SDL_Event* sdl_event);
     QJoystickButtonEvent getButtonEvent (const SDL_Event* sdl_event);
 
-    int m_tracker;
     QMap<int, QJoystickDevice*> m_joysticks;
 };
 
