@@ -64,14 +64,11 @@ private slots:
     void configureJoystick (const SDL_Event* event);
 
 private:
-    int getDynamicID (int id);
-
     QJoystickDevice* getJoystick (int id);
     QJoystickPOVEvent getPOVEvent (const SDL_Event* sdl_event);
     QJoystickAxisEvent getAxisEvent (const SDL_Event* sdl_event);
     QJoystickButtonEvent getButtonEvent (const SDL_Event* sdl_event);
 
-    int m_tracker;
     QMap<int, QJoystickDevice*> m_joysticks;
 };
 

@@ -83,6 +83,7 @@ ApplicationWindow {
             Layout.fillWidth: true
             model: QJoysticks.deviceNames
             onCurrentIndexChanged: generateJoystickWidgets (currentIndex)
+            onCurrentTextChanged: generateJoystickWidgets (currentIndex)
         }
 
         //
