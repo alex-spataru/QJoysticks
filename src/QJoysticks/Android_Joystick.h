@@ -26,11 +26,11 @@
 #include <QtGlobal>
 
 #ifdef Q_OS_ANDROID
-    #include <jni.h>
-    #include <QtCore/private/qjni_p.h>
-    #include <QtCore/private/qjnihelpers_p.h>
-    #include <QtAndroidExtras/QtAndroidExtras>
-    #include <QtAndroidExtras/QAndroidJniObject>
+#   include <jni.h>
+#   include <QtCore/private/qjni_p.h>
+#   include <QtCore/private/qjnihelpers_p.h>
+#   include <QtAndroidExtras/QtAndroidExtras>
+#   include <QtAndroidExtras/QAndroidJniObject>
 #endif
 
 #endif

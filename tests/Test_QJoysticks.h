@@ -14,102 +14,102 @@
 
 class Test_QJoysticks : public QObject
 {
-    Q_OBJECT
+   Q_OBJECT
 
 private slots:
-    void initTestCase()
-    {
-        /* Get the QJoysticks instance */
-        joysticks = QJoysticks::getInstance();
+   void initTestCase()
+   {
+      /* Get the QJoysticks instance */
+      joysticks = QJoysticks::getInstance();
 
-        /* Configure our test device */
-        QJoystickDevice device;
-        device.name = "Test device";
-        device.numAxes = 6;
-        device.numPOVs = 0;
-        device.numButtons = 12;
-        device.blacklisted = false;
-    }
+      /* Configure our test device */
+      QJoystickDevice device;
+      device.name = "Test device";
+      device.numAxes = 6;
+      device.numPOVs = 0;
+      device.numButtons = 12;
+      device.blacklisted = false;
+   }
 
-    void checkJoystickCount()
-    {
-        /* Clear joysticks & register only 1 joystick */
-        joysticks->resetJoysticks();
-        joysticks->addInputDevice (&device);
+   void checkJoystickCount()
+   {
+      /* Clear joysticks & register only 1 joystick */
+      joysticks->resetJoysticks();
+      joysticks->addInputDevice(&device);
 
-        /* Verify that joystick count is 1 */
-        QVERIFY (joysticks->count() == 1);
-    }
+      /* Verify that joystick count is 1 */
+      QVERIFY(joysticks->count() == 1);
+   }
 
-    void checkJoystickProperties()
-    {
-        joysticks->resetJoysticks();
-        joysticks->addInputDevice (&device);
+   void checkJoystickProperties()
+   {
+      joysticks->resetJoysticks();
+      joysticks->addInputDevice(&device);
 
-        /* Joystick properties should remain the same */
-        QVERIFY (joysticks->getName (0) == device.name);
-        QVERIFY (joysticks->getNumAxes (0) == device.numAxes);
-        QVERIFY (joysticks->getNumPOVs (0) == device.numPOVs);
-        QVERIFY (joysticks->getNumButtons (0) == device.numButtons);
-    }
+      /* Joystick properties should remain the same */
+      QVERIFY(joysticks->getName(0) == device.name);
+      QVERIFY(joysticks->getNumAxes(0) == device.numAxes);
+      QVERIFY(joysticks->getNumPOVs(0) == device.numPOVs);
+      QVERIFY(joysticks->getNumButtons(0) == device.numButtons);
+   }
 
-    void checkBlacklistedCount()
-    {
-        /* Add virtual joystick & blacklist it */
-        joysticks->resetJoysticks();
-        joysticks->setVirtualJoystickEnabled (true);
-        joysticks->setBlacklisted (0, true);
+   void checkBlacklistedCount()
+   {
+      /* Add virtual joystick & blacklist it */
+      joysticks->resetJoysticks();
+      joysticks->setVirtualJoystickEnabled(true);
+      joysticks->setBlacklisted(0, true);
 
-        /* Check that blacklisted joysticks have been updated */
-        QVERIFY (joysticks->nonBlacklistedCount() < joysticks->count());
-    }
+      /* Check that blacklisted joysticks have been updated */
+      QVERIFY(joysticks->nonBlacklistedCount() < joysticks->count());
+   }
 
-    void checkDiagnosticFunctions()
-    {
-        joysticks->resetJoysticks();
-        joysticks->addInputDevice (&device);
+   void checkDiagnosticFunctions()
+   {
+      joysticks->resetJoysticks();
+      joysticks->addInputDevice(&device);
 
-        /* Joystick 0 must exist */
-        QVERIFY (joysticks->joystickExists (0) == true);
+      /* Joystick 0 must exist */
+      QVERIFY(joysticks->joystickExists(0) == true);
 
-        /* Joystick 1 should not exist */
-        QVERIFY (joysticks->joystickExists (1) == false);
-    }
+      /* Joystick 1 should not exist */
+      QVERIFY(joysticks->joystickExists(1) == false);
+   }
 
-    void checkPointers()
-    {
-        /* Check pointers to interfaces */
-        QVERIFY (joysticks->sdlJoysticks());
-        QVERIFY (joysticks->virtualJoystick());
+   void checkPointers()
+   {
+      /* Check pointers to interfaces */
+      QVERIFY(joysticks->sdlJoysticks());
+      QVERIFY(joysticks->virtualJoystick());
 
-        /* Add a joystick */
-        joysticks->resetJoysticks();
-        joysticks->addInputDevice (&device);
+      /* Add a joystick */
+      joysticks->resetJoysticks();
+      joysticks->addInputDevice(&device);
 
-        /* Check that pointers returned by QJoysticks are appropiate */
-        QVERIFY (joysticks->getInputDevice (0) != Q_NULLPTR);
-        QVERIFY (joysticks->getInputDevice (1) == Q_NULLPTR);
+      /* Check that pointers returned by QJoysticks are appropiate */
+      QVERIFY(joysticks->getInputDevice(0) != Q_NULLPTR);
+      QVERIFY(joysticks->getInputDevice(1) == Q_NULLPTR);
 
-        /* Verify that joystick pointers still remain the same */
-        QVERIFY (joysticks->getInputDevice (0) == &device);
-    }
+      /* Verify that joystick pointers still remain the same */
+      QVERIFY(joysticks->getInputDevice(0) == &device);
+   }
 
-    void verifyCrashAvoidance()
-    {
-        joysticks->resetJoysticks();
+   void verifyCrashAvoidance()
+   {
+      joysticks->resetJoysticks();
 
-        /* Try to access invalid joystick and see what happens */
-        qDebug() << joysticks->getName (2);
-        qDebug() << joysticks->getNumAxes (2);
-        qDebug() << joysticks->getNumPOVs (2);
-        qDebug() << joysticks->getNumButtons (2);
-        qDebug() << joysticks->isBlacklisted (2);
-        qDebug() << joysticks->getInputDevice (2);
-    }
+      /* Try to access invalid joystick and see what happens */
+      qDebug() << joysticks->getName(2);
+      qDebug() << joysticks->getNumAxes(2);
+      qDebug() << joysticks->getNumPOVs(2);
+      qDebug() << joysticks->getNumButtons(2);
+      qDebug() << joysticks->isBlacklisted(2);
+      qDebug() << joysticks->getInputDevice(2);
+   }
 
 private:
-    QJoysticks* joysticks;
-    QJoystickDevice device;
+   QJoysticks *joysticks;
+   QJoystickDevice device;
 };
 
 #endif

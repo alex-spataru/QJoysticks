@@ -29,63 +29,63 @@
 #include <QJoysticks.h>
 
 #ifdef Q_OS_WIN
-    #ifdef main
-        #undef main
-    #endif
+#   ifdef main
+#      undef main
+#   endif
 #endif
 
 void configureDarkStyle()
 {
-    qApp->setStyle (QStyleFactory::create ("Fusion"));
-    QPalette darkPalette;
-    darkPalette.setColor (QPalette::BrightText,      Qt::red);
-    darkPalette.setColor (QPalette::WindowText,      Qt::white);
-    darkPalette.setColor (QPalette::ToolTipBase,     Qt::white);
-    darkPalette.setColor (QPalette::ToolTipText,     Qt::white);
-    darkPalette.setColor (QPalette::Text,            Qt::white);
-    darkPalette.setColor (QPalette::ButtonText,      Qt::white);
-    darkPalette.setColor (QPalette::HighlightedText, Qt::black);
-    darkPalette.setColor (QPalette::Window,          QColor (53, 53, 53));
-    darkPalette.setColor (QPalette::Base,            QColor (25, 25, 25));
-    darkPalette.setColor (QPalette::AlternateBase,   QColor (53, 53, 53));
-    darkPalette.setColor (QPalette::Button,          QColor (53, 53, 53));
-    darkPalette.setColor (QPalette::Link,            QColor (42, 130, 218));
-    darkPalette.setColor (QPalette::Highlight,       QColor (42, 130, 218));
-    qApp->setPalette (darkPalette);
+   qApp->setStyle(QStyleFactory::create("Fusion"));
+   QPalette darkPalette;
+   darkPalette.setColor(QPalette::BrightText, Qt::red);
+   darkPalette.setColor(QPalette::WindowText, Qt::white);
+   darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+   darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+   darkPalette.setColor(QPalette::Text, Qt::white);
+   darkPalette.setColor(QPalette::ButtonText, Qt::white);
+   darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+   darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+   darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
+   darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+   darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+   darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+   darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+   qApp->setPalette(darkPalette);
 }
 
-int main (int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    QApplication app (argc, argv);
-    QQmlApplicationEngine qmlEngine;
+   QApplication app(argc, argv);
+   QQmlApplicationEngine qmlEngine;
 
-    /*
-     * Make the application use the Fusion style + dark palette
-     */
-    configureDarkStyle();
+   /*
+    * Make the application use the Fusion style + dark palette
+    */
+   configureDarkStyle();
 
-    /*
-     * QJoysticks is single instance, you can use the "getInstance()" function
-     * directly if you want, or you can create a pointer to it to make code
-     * easier to read;
-     */
-    QJoysticks* instance = QJoysticks::getInstance();
+   /*
+    * QJoysticks is single instance, you can use the "getInstance()" function
+    * directly if you want, or you can create a pointer to it to make code
+    * easier to read;
+    */
+   QJoysticks *instance = QJoysticks::getInstance();
 
-    /* Enable the virtual joystick */
-    instance->setVirtualJoystickRange (1);
-    instance->setVirtualJoystickEnabled (true);
-    instance->setVirtualJoystickAxisSensibility(0.7);
+   /* Enable the virtual joystick */
+   instance->setVirtualJoystickRange(1);
+   instance->setVirtualJoystickEnabled(true);
+   instance->setVirtualJoystickAxisSensibility(0.7);
 
-    /*
-     * Register the QJoysticks with the QML engine, so that the QML interface
-     * can easilly use it.
-     */
-    qmlEngine.rootContext()->setContextProperty ("QJoysticks", instance);
+   /*
+    * Register the QJoysticks with the QML engine, so that the QML interface
+    * can easilly use it.
+    */
+   qmlEngine.rootContext()->setContextProperty("QJoysticks", instance);
 
-    /*
-     * Load main.qml and run the application.
-     */
-    qmlEngine.load (QUrl (QStringLiteral ("qrc:/main.qml")));
+   /*
+    * Load main.qml and run the application.
+    */
+   qmlEngine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    return app.exec();
+   return app.exec();
 }

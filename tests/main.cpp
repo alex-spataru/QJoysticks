@@ -22,15 +22,15 @@
 
 #include "Test_QJoysticks.h"
 
-int main (int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    QApplication app (argc, argv);
+   QApplication app(argc, argv);
 
-    app.setApplicationName ("QJoysticks Tests");
-    app.setOrganizationName ("The QJoysticks Library");
+   app.setApplicationName("QJoysticks Tests");
+   app.setOrganizationName("The QJoysticks Library");
 
-    QTest::qExec (new Test_QJoysticks, argc, argv);
-    QTimer::singleShot (1000, Qt::PreciseTimer, qApp, SLOT (quit()));
+   QTest::qExec(new Test_QJoysticks, argc, argv);
+   QTimer::singleShot(1000, Qt::PreciseTimer, qApp, SLOT(quit()));
 
-    return app.exec();
+   return app.exec();
 }
