@@ -32,3 +32,5 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/Test_QJoysticks.h
+
+TEMPLATE = app
