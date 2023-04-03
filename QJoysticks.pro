@@ -20,3 +20,4 @@
 # THE SOFTWARE.
 
 include ($$PWD/QJoysticks.pri)
+TEMPLATE = lib

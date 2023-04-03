@@ -25,9 +25,9 @@ private slots:
       /* Configure our test device */
       QJoystickDevice device;
       device.name = "Test device";
-      device.numAxes = 6;
-      device.numPOVs = 0;
-      device.numButtons = 12;
+//      device.numAxes = 6;
+//      device.numPOVs = 0;
+//      device.numButtons = 12;
       device.blacklisted = false;
    }
 
@@ -48,9 +48,9 @@ private slots:
 
       /* Joystick properties should remain the same */
       QVERIFY(joysticks->getName(0) == device.name);
-      QVERIFY(joysticks->getNumAxes(0) == device.numAxes);
-      QVERIFY(joysticks->getNumPOVs(0) == device.numPOVs);
-      QVERIFY(joysticks->getNumButtons(0) == device.numButtons);
+      QVERIFY(joysticks->getNumAxes(0) == device.axes.count());
+      QVERIFY(joysticks->getNumPOVs(0) == device.povs.count());
+      QVERIFY(joysticks->getNumButtons(0) == device.buttons.count());
    }
 
    void checkBlacklistedCount()
