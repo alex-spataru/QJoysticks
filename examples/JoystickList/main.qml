@@ -20,9 +20,9 @@
  * THE SOFTWARE.
  */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.0
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 ApplicationWindow {
     //
@@ -106,8 +106,8 @@ ApplicationWindow {
                     id: axes
                     delegate: ProgressBar {
                         id: progressbar
-                        minimumValue: -100
-                        maximumValue: 100
+                        from: -100
+                        to: 100
                         Layout.fillWidth: true
 
                         value: 0
@@ -115,7 +115,7 @@ ApplicationWindow {
 
                         Connections {
                             target: QJoysticks
-                            onAxisChanged: {
+                            function onAxisChanged(js, axis) {
                                 if (currentJoystick === js && index === axis)
                                     progressbar.value = QJoysticks.getAxis (js, index) * 100
                             }
@@ -156,7 +156,7 @@ ApplicationWindow {
                         //
                         Connections {
                             target: QJoysticks
-                            onButtonChanged: {
+                            function onButtonChanged(js, button) {
                                 if (currentJoystick === js && button === index)
                                     checked = QJoysticks.getButton (js, index)
                             }
@@ -186,8 +186,8 @@ ApplicationWindow {
                     id: povs
                     delegate: SpinBox {
                         enabled: false
-                        minimumValue: 0
-                        maximumValue: 360
+                        from: 0
+                        to: 360
                         Layout.fillWidth: true
 
                         //
@@ -195,7 +195,7 @@ ApplicationWindow {
                         //
                         Connections {
                             target: QJoysticks
-                            onPovChanged: {
+                            function onPovChanged(js, pov) {
                                 if (currentJoystick === js && pov === index)
                                     value = QJoysticks.getPOV (js, index)
                             }
