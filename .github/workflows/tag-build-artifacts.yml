@@ -21,12 +21,10 @@ jobs:
         include:
           - runner: ubuntu-22.04
             arch: x86_64
-            qt_host: linux
             artifact_name: qjoysticks-linux-x86_64.tar.gz
             expected_file_arch: x86-64
           - runner: ubuntu-22.04-arm
             arch: aarch64
-            qt_host: linux_arm64
             artifact_name: qjoysticks-linux-aarch64.tar.gz
             expected_file_arch: aarch64
     runs-on: ${{ matrix.runner }}
@@ -37,23 +35,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install build tools
+      # Distro Qt (6.2.4 on Ubuntu 22.04) instead of Qt's official binaries:
+      # Qt's arm64 Linux binaries are built on Ubuntu 24.04 (glibc 2.38) and
+      # don't even run on this 22.04 runner. Building against the distro Qt
+      # keeps the glibc 2.35 baseline AND lets the lib load in any app using
+      # Qt >= 6.2 - widest compatibility.
+      - name: Install build tools and Qt
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             build-essential cmake ninja-build pkg-config \
+            qt6-base-dev \
             libasound2-dev libpulse-dev libdbus-1-dev libudev-dev \
             libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxi-dev \
             libxfixes-dev libxss-dev libxkbcommon-dev \
             libwayland-dev libegl1-mesa-dev libgl1-mesa-dev libdrm-dev libgbm-dev
-
-      - name: Install Qt ${{ env.QT_VERSION }}
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: ${{ env.QT_VERSION }}
-          host: ${{ matrix.qt_host }}
-          target: desktop
-          cache: true
 
       - name: Cache static SDL2
         id: cache-deps
@@ -153,6 +149,7 @@ jobs:
           fi
 
           glibc_version="$(ldd --version | head -n 1 | awk '{print $NF}')"
+          qt_version="$(dpkg-query -W -f='${Version}' qt6-base-dev | cut -d+ -f1)"
           build_timestamp="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
 
           cat > dist/BUILD-MANIFEST.txt <<EOF
@@ -160,7 +157,7 @@ jobs:
           target_arch=${{ matrix.arch }}
           min_distro=ubuntu-22.04 (glibc >= 2.35)
           build_glibc_version=${glibc_version}
-          qt_version=${QT_VERSION} (dynamic - consumer app provides Qt >= this version)
+          qt_version=${qt_version} (dynamic - consumer app provides Qt >= this version)
           sdl2_version=${SDL2_VERSION} (statically embedded)
           git_commit=${GITHUB_SHA}
           build_timestamp=${build_timestamp}

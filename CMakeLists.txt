@@ -57,9 +57,14 @@ target_link_libraries(QJoysticks
     PRIVATE
         ${QJ_SDL2_TARGET})
 
-# Public API is C++ (no export macros in the sources), so export everything
-# on Windows via an auto-generated .def file.
-set_target_properties(QJoysticks PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+# Export the public QJoysticks class on Windows via QJOYSTICKS_EXPORT.
+# (WINDOWS_EXPORT_ALL_SYMBOLS is NOT used: it breaks with AUTORCC-generated
+# objects under the Visual Studio generator.)
+if(QJOYSTICKS_BUILD_SHARED)
+    target_compile_definitions(QJoysticks PRIVATE QJOYSTICKS_LIBRARY)
+else()
+    target_compile_definitions(QJoysticks PUBLIC QJOYSTICKS_STATIC)
+endif()
 
 if(UNIX AND NOT APPLE AND QJOYSTICKS_BUILD_SHARED)
     # Self-contained .so (apart from Qt and system libs):

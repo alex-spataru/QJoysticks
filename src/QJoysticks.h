@@ -27,6 +27,20 @@
 #include <QStringList>
 #include <QJoysticks/JoysticksCommon.h>
 
+/* QJOYSTICKS_LIBRARY is defined while building the QJoysticks DLL (CMake).
+ * QJOYSTICKS_STATIC is defined when the sources are compiled directly into
+ * an app (QJoysticks.pri) or built as a static lib.
+ * Apps linking against the prebuilt DLL need no defines (-> dllimport). */
+#if defined(_WIN32) && !defined(QJOYSTICKS_STATIC)
+#  if defined(QJOYSTICKS_LIBRARY)
+#    define QJOYSTICKS_EXPORT __declspec(dllexport)
+#  else
+#    define QJOYSTICKS_EXPORT __declspec(dllimport)
+#  endif
+#else
+#  define QJOYSTICKS_EXPORT
+#endif
+
 class QSettings;
 class SDL_Joysticks;
 class VirtualJoystick;
@@ -48,7 +62,7 @@ class VirtualJoystick;
  * \note the virtual joystick will ALWAYS be the last joystick to be registered,
  *       even if it has been enabled before any SDL joystick has been attached.
  */
-class QJoysticks : public QObject
+class QJOYSTICKS_EXPORT QJoysticks : public QObject
 {
    Q_OBJECT
    Q_PROPERTY(int count READ count NOTIFY countChanged)

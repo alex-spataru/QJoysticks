@@ -21,6 +21,9 @@
 
 include ($$PWD/lib/SDL/SDL.pri)
 
+# Sources are compiled directly into the app -> no dllexport/dllimport.
+DEFINES += QJOYSTICKS_STATIC
+
 QT += gui
 QT += core
 QT += widgets
