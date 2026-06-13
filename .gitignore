@@ -36,3 +36,5 @@ Temporary Items
 # Custom folders
 .vscode
 .build
+
+!.github/workflows/*.yml
