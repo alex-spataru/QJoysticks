@@ -47,11 +47,10 @@ macx* {
     }
 
     LIBS += -framework AudioToolbox
-    LIBS += -framework AudioUnit
     LIBS += -framework Cocoa
     LIBS += -framework CoreAudio
     LIBS += -framework IOKit
-    LIBS += -framework OpenGL
+    LIBS += -framework Metal
     LIBS += -framework CoreFoundation
     LIBS += -framework Carbon
     LIBS += -framework ForceFeedback
@@ -60,15 +59,16 @@ macx* {
     LIBS += -framework CoreHaptics
 
     QMAKE_LFLAGS += -F /System/Library/Frameworks/AudioToolbox.framework/
-    QMAKE_LFLAGS += -F /System/Library/Frameworks/AudioUnit.framework/
     QMAKE_LFLAGS += -F /System/Library/Frameworks/Cocoa.framework/
     QMAKE_LFLAGS += -F /System/Library/Frameworks/CoreAudio.framework/
     QMAKE_LFLAGS += -F /System/Library/Frameworks/IOKit.framework/
-    QMAKE_LFLAGS += -F /System/Library/Frameworks/OpenGL.framework/
+    QMAKE_LFLAGS += -F /System/Library/Frameworks/Metal.framework/
     QMAKE_LFLAGS += -F /System/Library/Frameworks/CoreFoundation.framework/
     QMAKE_LFLAGS += -F /System/Library/Frameworks/Carbon.framework/
     QMAKE_LFLAGS += -F /System/Library/Frameworks/ForceFeedback.framework/
     QMAKE_LFLAGS += -F /System/Library/Frameworks/CoreVideo.framework/
+    QMAKE_LFLAGS += -F /System/Library/Frameworks/CoreHaptics.framework/
+    QMAKE_LFLAGS += -F /System/Library/Frameworks/GameController.framework/
 }
 
 linux:!android {
